@@ -1,6 +1,6 @@
 # Javaslang Website
 
-This is the source of the Javaslang website located at http://javaslang.org.
+This is the source of the Javaslang website located at http://javaslang.com.
 
 ## Thanks
 
