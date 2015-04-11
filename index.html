@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Javaslang is a functional component library for Java 8+">
+    <meta name="author" content="Daniel Dietrich">
+
+    <title>Javaslang</title>
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon-precomposed.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/javaslang.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- syntax highlighting with prismjs -->
+    <link href="prismjs/prism.css" rel="stylesheet" data-noprefix="">
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">J&Lambda;V&Lambda;SL&Lambda;NG</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#download">Download</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#documentation">Documentation</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro" data-speed="8" data-type="background">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h1 class="brand-heading">J&Lambda;V&Lambda;SL&Lambda;NG</h1>
+                        <p class="intro-text">More Control. Less Code.<br>Functional Component Library for Java 8+</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-down fa-2x animated"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="container content-section text-center">
+        <div class="about-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <p>
+                        Java 8 introduced <span class="lambda">&lambda;</span> which dramatically increases the expressiveness of our programs, but
+                        <em>&ldquo;Clearly, the JDK APIs won’t help you to write concise functional logic (...)&rdquo;</em> - <a href="http://blog.jooq.org/2015/04/02/how-to-use-java-8-streams-to-swiftly-replace-elements-in-a-list/" target="_blank">jOOQ&trade; blog</a>
+                    </p>
+                    <p>
+                        Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.<br>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section" data-speed="10" data-type="background">
+            <div class="container">
+                <div class="row">
+                    <p>Javaslang&trade; is free. Integrate it with your favorite build tool.</p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="download">
+                            <a href="http://javaslang.com/javadoc/1.2.0/index.html" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-file-code-o fa-fw"></i>Browse Javadoc</a><br>Previous:
+                            <a href="http://javaslang.com/javadoc/1.1.0/index.html">1.1.0</a> &middot;
+                            <a href="http://javaslang.com/javadoc/1.0.0/index.html">1.0.0</a></p>
+                        </li>
+                        <li class="download">
+                            <a href="http://javaslang.com/javadoc/1.2.0/javaslang-1.2.0-javadoc.zip" class="btn btn-default btn-lg"><i class="fa fa-file-zip-o fa-fw"></i>Download Javadoc</a>
+                        </li>
+                        <li class="download">
+                            <a href="https://github.com/javaslang/javaslang" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i>Source Code</a>
+                        </li>
+                    </ul>
+                </div>
+                    <div class="col-md-6">
+                        <p class="code">Gradle</p>
+                        <pre class="code"><code class="language-javascript">
+compile "com.javaslang:javaslang:1.2.0"</code></pre>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="code">Maven</p>
+                        <pre class="code"><code class="language-markup">
+&lt;dependency&gt;
+    &lt;groupId&gt;com.javaslang&lt;/groupId&gt;
+    &lt;artifactId&gt;javaslang&lt;/artifactId&gt;
+    &lt;version&gt;1.2.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="container content-section text-center">
+        <div class="container">
+            <div class="row">
+                <h2>Core</h2>
+                <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/Tuple.html" target="_blank">Tuple</a> and <a href="http://javaslang.com/javadoc/1.2.0/javaslang/λ.html" target="_blank">&lambda;</a>.</p>
+                <img class="img-responsive" src="img/doc-tuple_lambda.png"/>
+                <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="http://javaslang.com/javadoc/1.2.0/javaslang/CheckedFunction0.html" target="_blank">CheckedFunction0</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/CheckedFunction26.html" target="_blank">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
+                <pre><code class="language-java">
+// may throw when called
+final Try.CheckedRunnable performIO = () -> { ... };
+</code></pre>
+                <p><a href="http://javaslang.com/javadoc/1.2.0/javaslang/Function0.html" target="_blank">Function0</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/Function26.html" target="_blank">Function26</a> are unchecked functions, i.e. they may throw RuntimeException or Error. Checked and unchecked functions are enriched to make function handling a breeze. They are designed to play well together with collections and control structures.</p>
+                <pre><code class="language-java">
+// sum.apply(1, 3) = 4
+final Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
+
+// add2.apply(1) = 3
+final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);</code></pre>
+            </div>
+            <div class="row">
+                <h2>Collections</h2>
+                <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
+                <img class="img-responsive" src="img/doc-collections.png"/>
+                <p>The new collections are based on <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>, so they leverage the sugared iteration style.</p>
+                <pre><code class="language-java">
+// 1000 random numbers
+for (double random : Stream.gen(Math::random).take(1000)) {
+    ...
+}</code></pre>
+                <p><a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/Traversable.html" target="_blank">Traversable</a> has a huge amount of useful functions to operate on the collection. Its API is similar to <a href="http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">java.util.stream.Stream</a> but more mature. Set and Map will come in a future release, Tree will implement Traversable.</p>
+            </div>
+            <div class="row">
+                <h3>List</h3>
+                <p>Javaslang's <a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/List.html" target="_blank">List</a> is an immutable linked list. Mutations create new instances. Most operations are performed in linear time. Consequent operations are executed one by one.</p>
+                <div class="col-md-6">
+                    <h2 class="label">Java 8</h2>
+                    <pre><code class="language-java">
+Arrays.asList(1, 2, 3).stream().reduce((i, j) -&gt; i + j);</code></pre>
+                    <pre><code class="language-java">
+IntStream.of(1, 2, 3).sum();</code></pre>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="label">Javaslang</h2>
+                    <pre><code class="language-java">
+// javaslang.collection.List
+List.of(1, 2, 3).sum();</code></pre>
+                </div>
+            </div>
+            <div class="row">
+                <h3>Stream</h3>
+                <p>The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/Stream.html" target="_blank">javaslang.collection.Stream</a> implementation is a lazy linked list. Values are computed only when needed. Because of its laziness, most operations are performed in constant time. Operations are intermediate in general and executed in a single pass.</p>
+                <p>The stunning thing about streams is that we can use them to represent sequences that are (theoretically) infinitely long.</p>
+                <pre><code class="language-java">
+// 2, 4, 6, ...
+Stream.gen(1).filter(i -> i % 2 == 0);</code></pre>
+                <p>An experimental, not yet finished feature is the stream processing of blocking input streams.</p>
+                <pre><code class="language-java">
+Stream.stdin().filter(s -> s.startsWith("LOG[ERROR]")).stdout();</code></pre>
+            </div>
+            <div class="row">
+                <h2>Pattern Matching</h2>
+                <p>Objects are matched by type with lambdas of <a href="http://en.wikipedia.org/wiki/Arity" target="_blank">arity</a> 1.</p>
+                <pre><code class="language-java">
+final Predicate&lt;InputStream&gt; isBuffered = (InputStream in) -> Match
+    .caze((BufferedInputStream b) -> true)
+    .orElse(false)
+    .apply(in);</code></pre>
+                <p>All classes representing data in Javaslang are of type <a href="http://javaslang.com/javadoc/1.2.0/javaslang/ValueObject.html" target="_blank">ValueObject</a>. A ValueObject has an identity based on the encapsulated data, it is decomposable into its parts and serializable. A future version of the match API will take advantage of decomposability.</p>
+            </div>
+            <div class="row">
+                <h2>Failure Handling</h2>
+                <p>The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Try.html" target="_blank">Try</a> monad aims to ease exception handling. It represents the result state of a computation which may be a <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Success.html" target="_blank">Success</a> or a <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Failure.html" target="_blank">Failure</a>.</p>
+                <div class="col-md-6">
+                    <h2 class="label">Java 8</h2>
+                    <pre><code class="language-java">
+// cannot be final
+A result = other;
+try {
+   result = bunchOfWork();
+} catch(Exception_1 e) {
+   ...
+} catch(Exception_2 e) {
+   ...
+} catch(Exception_n e) {
+   ...
+}</code></pre>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="label">Javaslang</h2>
+                    <pre><code class="language-java">
+// no need to handle exceptions
+Try.of(() -> bunchOfWork()).orElse(other);</code></pre>
+                    <pre><code class="language-java">
+final A result = Try.of(this::bunchOfWork)
+    .recover(x -> Match
+        .caze((Exception_1 e) -> ...)
+        .caze((Exception_2 e) -> ...)
+        .caze((Exception_n e) -> ...)
+        .apply(x))
+    .orElse(other);</code></pre>
+                </div>
+                <p>Similar to collections it has the functions map() and flatMap() to further process results.</p>
+            </div>
+            <div class="row">
+                <h2>Property checking</h2>
+                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a not-so-well-known but truly powerful way to test properties of our code in a functional way. It is based on <em><a href="http://javaslang.com/javadoc/1.2.0/javaslang/test/Arbitrary.html" target="_blank">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
+                <pre><code class="language-java">
+final Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
+final CheckResult result = new Property("square(int) &gt;= 0")
+        .forAll(ints)
+        .suchThat(i -> (i * i) &gt;= 0)
+        .check();
+// square(int) &gt;= 0: OK, passed 1000 tests.
+CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
+                <p>Generators of complex data structures are composed of simple generators.
+            </div>
+            <div class="row">
+                <h2>To be continued...</h2>
+                <p>Javaslang has more useful data types not documented here, yet. The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Option.html" target="_blank">Option</a> type is good for null-safe programming. It is a replacement for <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank">java.util.Optional</a>. <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Either.html" target="_blank">Either</a> is a disjoint union type and there are also a growing amount of algebraic data types like, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monoid.html" target="_blank">Monoid</a>, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Functor1.html" target="_blank">Functor1</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Functor26.html" target="_blank">Functor26</a> and <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monad1.html" target="_blank">Monad1</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monad26.html" target="_blank">Monad26</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section text-center">
+        <div class="contact-section" data-speed="10" data-type="background">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Contact</h2>
+                    <p>Feel free to get in touch via Github, Twitter or Email to give some feedback, suggestions or just to browse the code!</p>
+                    <ul class="list-inline">
+                        <li>
+                            <a class="btn-social btn-outline" target="_blank" title="Github" href="https://github.com/javaslang/javaslang">
+                                <i class="fa fa-fw fa-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn-social btn-outline" target="_blank" title="Twitter" href="https://twitter.com/_javaslang">
+                                <i class="fa fa-fw fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="btn-social btn-outline" target="_blank" title="Email" href="mailto:mail@javaslang.com">
+                                <i class="fa fa-fw fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <div id="links" class="content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <p>&copy; 2014-<span id="copyright_year">2015</span> Daniel Dietrich. All Rights Reserved.</p>
+            </div>
+        </div>
+     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <div class="col-lg-8 col-lg-offset-2">
+                <p>This site is built with <a href="http://getbootstrap.com">Bootstrap</a> and is based on the theme <a href="http://startbootstrap.com/template-overviews/grayscale/">Grayscale</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/grayscale.js"></script>
+
+    <!-- syntax highlighting with prismjs -->
+    <script src="prismjs/prism.js"></script>
+
+    <script> // @@dd
+
+        // set year
+        $("#copyright_year").text(new Date().getFullYear());
+
+        // IE vs new html5 tags fix
+        // document.createElement("header");
+        // document.createElement("section");
+
+        // init parallax scroller
+        $(document).ready(function(){
+           // cache the window object
+           $window = $(window);
+         
+           // intro
+           $('header[data-type="background"], div[data-type="background"]').each(function(){
+             // declare the variable to affect the defined data-type
+             var $scroll = $(this);
+                             
+              $(window).scroll(function() {
+                // HTML5 proves useful for helping with creating JS functions!
+                // also, negative value because we're scrolling upwards                             
+                var yPos = - (($window.scrollTop() - $scroll.position().top) / $scroll.data('speed'));
+                 
+                // background position
+                var coords = '50% '+ yPos + 'px';
+         
+                // move the background
+                $scroll.css({ backgroundPosition: coords });    
+              }); // end window scroll
+           });  // end section function
+
+        }); // close out script
+
+    </script>
+
+</body>
+
+</html>
