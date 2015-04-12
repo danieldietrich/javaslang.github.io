@@ -55,21 +55,11 @@
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#download">Download</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#documentation">Documentation</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
+                    <li class="hidden"><a href="#page-top"></a></li>
+                    <li><a class="page-scroll" href="#about">About</a></li>
+                    <li><a class="page-scroll" href="#download">Download</a></li>
+                    <li><a class="page-scroll" href="#documentation">Documentation</a></li>
+                    <li><a class="page-scroll" href="#contact">Contact</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -104,8 +94,7 @@
                         <em>&ldquo;Clearly, the JDK APIs won’t help you to write concise functional logic (...)&rdquo;</em> - <a href="http://blog.jooq.org/2015/04/02/how-to-use-java-8-streams-to-swiftly-replace-elements-in-a-list/" target="_blank">jOOQ&trade; blog</a>
                     </p>
                     <p>
-                        Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.<br>
-
+                        Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.
                     </p>
                 </div>
             </div>
@@ -117,21 +106,43 @@
         <div class="download-section" data-speed="10" data-type="background">
             <div class="container">
                 <div class="row">
-                    <p>Javaslang&trade; is free. Integrate it with your favorite build tool.</p>
+                    <ul class="list-inline">
+                        <li><p>Get Javaslang&trade;</p></li>
+                        <li>
+                            <div class="btn-group" style="vertical-align: middle">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span id="version">1.2.0</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" onclick="setVersion('latest'); return false;">latest snapshot</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" onclick="setVersion('1.2.0'); return false;">1.2.0</a></li>
+                                    <li><a href="#" onclick="setVersion('1.1.0'); return false;">1.1.0</a></li>
+                                    <li><a href="#" onclick="setVersion('1.0.0'); return false;">1.0.0</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><p>and integrate it with your favorite build tool.</p></li>
+                    </ul>
                     <ul class="list-inline banner-social-buttons">
-                        <li class="download">
-                            <a href="http://javaslang.com/javadoc/1.2.0/index.html" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-file-code-o fa-fw"></i>Browse Javadoc</a><br>Previous:
-                            <a href="http://javaslang.com/javadoc/1.1.0/index.html" target="_blank">1.1.0</a> &middot;
-                            <a href="http://javaslang.com/javadoc/1.0.0/index.html" target="_blank">1.0.0</a></p>
+                        <li>
+                            <a href="#" onclick="openUrl(getVersion(),'http://javaslang.com/javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
+                                <i class="fa fa-file-code-o fa-fw"></i> Browse Javadoc
+                            </a>
                         </li>
-                        <li class="download">
-                            <a href="http://javaslang.com/javadoc/1.2.0/javaslang-1.2.0-javadoc.zip" class="btn btn-default btn-lg"><i class="fa fa-file-zip-o fa-fw"></i>Download Javadoc</a>
+                        <li>
+                            <a href="#" onclick="openUrl(getVersion(), 'http://javaslang.com/javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
+                                <i class="fa fa-file-zip-o fa-fw"></i> Download Javadoc
+                            </a>
                         </li>
-                        <li class="download">
-                            <a href="https://github.com/javaslang/javaslang" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i>Source Code</a>
+                        <li>
+                            <a href="#" onclick="openUrl(getVersion(), 'https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
+                                <i class="fa fa-github fa-fw"></i> Source Code
+                            </a>
                         </li>
                     </ul>
                 </div>
+                <div class="row">
                     <div class="col-md-6">
                         <p class="code">Gradle</p>
                         <pre class="code"><code class="language-javascript">
@@ -338,6 +349,30 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
     <script src="prismjs/prism.js"></script>
 
     <script> // @@dd
+
+        // javascript extension method: String.endsWith(string)
+        String.prototype.endsWith = function(suffix) {
+            return this.indexOf(suffix, this.length - suffix.length) !== -1
+        }
+
+        // returns the selected Javaslang version (see download section)
+        function getVersion() {
+            return $("#version").text()
+        }
+
+        // sets the selected Javaslang version (see download section)
+        function setVersion(version) {
+            $("#version").text(version)
+        }
+
+        // opens a url depending on snapshot or release version, substitutes '${version}' with given version
+        function openUrl(version, releaseUrl, snapshotUrl) {
+            if (typeof snapshotUrl == 'undefined') {
+                snapshotUrl = releaseUrl
+            }
+            var url = ((version == "latest") ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, version)
+            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+        }
 
         // set year
         $("#copyright_year").text(new Date().getFullYear());
