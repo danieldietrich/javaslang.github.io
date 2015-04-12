@@ -265,8 +265,8 @@ pre.code {
     -o-background-size: cover;
 }
 
-li.download {
-    vertical-align: top;
+#downloadVersion {
+    vertical-align: middle;
 }
 
 .contact-section {
