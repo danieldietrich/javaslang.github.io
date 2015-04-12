@@ -3,6 +3,21 @@
 
 <head>
 
+    <script>
+        /*
+         * HERE GO THE JAVASLANG VERSIONS IN _DECENDING_ ORDER.
+         * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
+         */
+        var JAVASLANG_VERSIONS = {
+            "latest": "1.3.0-SNAPSHOT",
+            "releases": [
+                "1.2.0",
+                "1.1.0",
+                "1.0.0"
+            ]
+        }
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -109,16 +124,11 @@
                     <ul class="list-inline">
                         <li><p>Get Javaslang&trade;</p></li>
                         <li>
-                            <div class="btn-group" style="vertical-align: middle">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span id="version">1.2.0</span>&nbsp;<span class="caret"></span>
+                                    <span id="versionSelection">latest</span> <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" onclick="setVersion('latest'); return false;">latest snapshot</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#" onclick="setVersion('1.2.0'); return false;">1.2.0</a></li>
-                                    <li><a href="#" onclick="setVersion('1.1.0'); return false;">1.1.0</a></li>
-                                    <li><a href="#" onclick="setVersion('1.0.0'); return false;">1.0.0</a></li>
+                                <ul id="versionList" class="dropdown-menu" role="menu">
                                 </ul>
                             </div>
                         </li>
@@ -126,17 +136,17 @@
                     </ul>
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="#" onclick="openUrl(getVersion(),'http://javaslang.com/javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-code-o fa-fw"></i> Browse Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl(getVersion(), 'http://javaslang.com/javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-zip-o fa-fw"></i> Download Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl(getVersion(), 'https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openUrl('https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-github fa-fw"></i> Source Code
                             </a>
                         </li>
@@ -145,16 +155,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p class="code">Gradle</p>
-                        <pre class="code"><code class="language-javascript">
-compile "com.javaslang:javaslang:1.2.0"</code></pre>
+                        <pre class="code"><code id="gradleDependency" class="language-javascript">
+compile "com.javaslang:javaslang:latest"</code></pre>
                     </div>
                     <div class="col-md-6">
                         <p class="code">Maven</p>
-                        <pre class="code"><code class="language-markup">
+                        <pre class="code"><code id="mavenDependency" class="language-markup">
 &lt;dependency&gt;
     &lt;groupId&gt;com.javaslang&lt;/groupId&gt;
     &lt;artifactId&gt;javaslang&lt;/artifactId&gt;
-    &lt;version&gt;1.2.0&lt;/version&gt;
+    &lt;version&gt;latest&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
                     </div>
                 </div>
@@ -167,14 +177,14 @@ compile "com.javaslang:javaslang:1.2.0"</code></pre>
         <div class="container">
             <div class="row">
                 <h2>Core</h2>
-                <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/Tuple.html" target="_blank">Tuple</a> and <a href="http://javaslang.com/javadoc/1.2.0/javaslang/λ.html" target="_blank">&lambda;</a>.</p>
+                <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> and <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a>.</p>
                 <img class="img-responsive" src="img/doc-tuple_lambda.png"/>
-                <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="http://javaslang.com/javadoc/1.2.0/javaslang/CheckedFunction0.html" target="_blank">CheckedFunction0</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/CheckedFunction26.html" target="_blank">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
+                <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="#" onclick="javadoc('javaslang/CheckedFunction0.html'); return false;">CheckedFunction0</a> to <a href="#" onclick="javadoc('javaslang/CheckedFunction26.html'); return false;">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
                 <pre><code class="language-java">
 // may throw when called
 final Try.CheckedRunnable performIO = () -> { ... };
 </code></pre>
-                <p><a href="http://javaslang.com/javadoc/1.2.0/javaslang/Function0.html" target="_blank">Function0</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/Function26.html" target="_blank">Function26</a> are unchecked functions, i.e. they may throw RuntimeException or Error. Checked and unchecked functions are enriched to make function handling a breeze. They are designed to play well together with collections and control structures.</p>
+                <p><a href="#" onclick="javadoc('javaslang/Function0.html'); return false;">Function0</a> to <a href="#" onclick="javadoc('javaslang/Function26.html'); return false;">Function26</a> are unchecked functions, i.e. they may throw RuntimeException or Error. Checked and unchecked functions are enriched to make function handling a breeze. They are designed to play well together with collections and control structures.</p>
                 <pre><code class="language-java">
 // sum.apply(1, 3) = 4
 final Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
@@ -192,11 +202,11 @@ final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);</code></p
 for (double random : Stream.gen(Math::random).take(1000)) {
     ...
 }</code></pre>
-                <p><a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/Traversable.html" target="_blank">Traversable</a> has a huge amount of useful functions to operate on the collection. Its API is similar to <a href="http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">java.util.stream.Stream</a> but more mature. Set and Map will come in a future release, Tree will implement Traversable.</p>
+                <p><a href="#" onclick="javadoc('javaslang/collection/Traversable.html'); return false;">Traversable</a> has a huge amount of useful functions to operate on the collection. Its API is similar to <a href="http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">java.util.stream.Stream</a> but more mature. Set and Map will come in a future release, Tree will implement Traversable.</p>
             </div>
             <div class="row">
                 <h3>List</h3>
-                <p>Javaslang's <a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/List.html" target="_blank">List</a> is an immutable linked list. Mutations create new instances. Most operations are performed in linear time. Consequent operations are executed one by one.</p>
+                <p>Javaslang's <a href="#" onclick="javadoc('javaslang/collection/List.html'); return false;">List</a> is an immutable linked list. Mutations create new instances. Most operations are performed in linear time. Consequent operations are executed one by one.</p>
                 <div class="col-md-6">
                     <h2 class="label">Java 8</h2>
                     <pre><code class="language-java">
@@ -213,7 +223,7 @@ List.of(1, 2, 3).sum();</code></pre>
             </div>
             <div class="row">
                 <h3>Stream</h3>
-                <p>The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/collection/Stream.html" target="_blank">javaslang.collection.Stream</a> implementation is a lazy linked list. Values are computed only when needed. Because of its laziness, most operations are performed in constant time. Operations are intermediate in general and executed in a single pass.</p>
+                <p>The <a href="#" onclick="javadoc('javaslang/collection/Stream.html'); return false;">javaslang.collection.Stream</a> implementation is a lazy linked list. Values are computed only when needed. Because of its laziness, most operations are performed in constant time. Operations are intermediate in general and executed in a single pass.</p>
                 <p>The stunning thing about streams is that we can use them to represent sequences that are (theoretically) infinitely long.</p>
                 <pre><code class="language-java">
 // 2, 4, 6, ...
@@ -230,11 +240,11 @@ final Predicate&lt;InputStream&gt; isBuffered = (InputStream in) -> Match
     .caze((BufferedInputStream b) -> true)
     .orElse(false)
     .apply(in);</code></pre>
-                <p>All classes representing data in Javaslang are of type <a href="http://javaslang.com/javadoc/1.2.0/javaslang/ValueObject.html" target="_blank">ValueObject</a>. A ValueObject has an identity based on the encapsulated data, it is decomposable into its parts and serializable. A future version of the match API will take advantage of decomposability.</p>
+                <p>All classes representing data in Javaslang are of type <a href="#" onclick="javadoc('javaslang/ValueObject.html'); return false;">ValueObject</a>. A ValueObject has an identity based on the encapsulated data, it is decomposable into its parts and serializable. A future version of the match API will take advantage of decomposability.</p>
             </div>
             <div class="row">
                 <h2>Failure Handling</h2>
-                <p>The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Try.html" target="_blank">Try</a> monad aims to ease exception handling. It represents the result state of a computation which may be a <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Success.html" target="_blank">Success</a> or a <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Failure.html" target="_blank">Failure</a>.</p>
+                <p>The <a href="#" onclick="javadoc('javaslang/control/Try.html'); return false;">Try</a> monad aims to ease exception handling. It represents the result state of a computation which may be a <a href="#" onclick="javadoc('javaslang/control/Success.html'); return false;">Success</a> or a <a href="#" onclick="javadoc('javaslang/control/Failure.html'); return false;">Failure</a>.</p>
                 <div class="col-md-6">
                     <h2 class="label">Java 8</h2>
                     <pre><code class="language-java">
@@ -268,7 +278,7 @@ final A result = Try.of(this::bunchOfWork)
             </div>
             <div class="row">
                 <h2>Property checking</h2>
-                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a not-so-well-known but truly powerful way to test properties of our code in a functional way. It is based on <em><a href="http://javaslang.com/javadoc/1.2.0/javaslang/test/Arbitrary.html" target="_blank">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
+                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a not-so-well-known but truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
                 <pre><code class="language-java">
 final Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
 final CheckResult result = new Property("square(int) &gt;= 0")
@@ -281,7 +291,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
             </div>
             <div class="row">
                 <h2>To be continued...</h2>
-                <p>Javaslang has more useful data types not documented here, yet. The <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Option.html" target="_blank">Option</a> type is good for null-safe programming. It is a replacement for <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank">java.util.Optional</a>. <a href="http://javaslang.com/javadoc/1.2.0/javaslang/control/Either.html" target="_blank">Either</a> is a disjoint union type and there are also a growing amount of algebraic data types like, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monoid.html" target="_blank">Monoid</a>, <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Functor1.html" target="_blank">Functor1</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Functor26.html" target="_blank">Functor26</a> and <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monad1.html" target="_blank">Monad1</a> to <a href="http://javaslang.com/javadoc/1.2.0/javaslang/algebra/Monad26.html" target="_blank">Monad26</a>.</p>
+                <p>Javaslang has more useful data types not documented here, yet. The <a href="#" onclick="javadoc('javaslang/control/Option.html'); return false;">Option</a> type is good for null-safe programming. It is a replacement for <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank">java.util.Optional</a>. <a href="#" onclick="javadoc('javaslang/control/Either.html'); return false;">Either</a> is a disjoint union type and there are also a growing amount of algebraic data types like, <a href="#" onclick="javadoc('javaslang/algebra/Monoid.html'); return false;">Monoid</a>, <a href="#" onclick="javadoc('javaslang/algebra/Functor1.html'); return false;">Functor1</a> to <a href="#" onclick="javadoc('javaslang/algebra/Functor26.html'); return false;">Functor26</a> and <a href="#" onclick="javadoc('javaslang/algebra/Monad1.html'); return false;">Monad1</a> to <a href="#" onclick="javadoc('javaslang/algebra/Monad26.html'); return false;">Monad26</a>.</p>
             </div>
         </div>
     </section>
@@ -350,27 +360,68 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
 
     <script> // @@dd
 
-        // javascript extension method: String.endsWith(string)
-        String.prototype.endsWith = function(suffix) {
-            return this.indexOf(suffix, this.length - suffix.length) !== -1
+        function initVersions() {
+            var latest = JAVASLANG_VERSIONS.latest
+            var list = $("#versionList")
+            list.append('<li><a href="#" onclick="setVersion(\'' + latest + '\'); return false;">' + latest + '</a></li>')
+            list.append('<li class="divider"></li>')
+            var releases = JAVASLANG_VERSIONS.releases
+            var length = releases.length
+            for (var i = 0; i < length; i++) {
+                var version = releases[i]
+                list.append('<li><a href="#" onclick="setVersion(\'' + version + '\'); return false;">' + version + '</a></li>')
+            }
+            setVersion(currentRelease())
+        }
+
+        function currentRelease() {
+            return JAVASLANG_VERSIONS.releases[0]
+        }
+
+        function currentSnapshot() {
+            return JAVASLANG_VERSIONS.latest
         }
 
         // returns the selected Javaslang version (see download section)
         function getVersion() {
-            return $("#version").text()
+            return $("#versionSelection").text()
         }
 
         // sets the selected Javaslang version (see download section)
         function setVersion(version) {
-            $("#version").text(version)
+            var previousVersion = getVersion()
+            updateDependencies(previousVersion, version)
+            $("#versionSelection").text(version)
+        }
+
+        // prequisites: the elements #versionSelection, #mavenDependencies and #gradeleDependencies
+        //              have to be initialized with the same value (i.e. 'latest')
+        function updateDependencies(previousVersion, version) {
+
+            function setDependency(cssSelector) {
+                var element = $(cssSelector)
+                var content = element.html().replace(previousVersion, version)
+                element.html(content)
+            }
+
+            setDependency("#gradleDependency")
+            setDependency("#mavenDependency")
         }
 
         // opens a url depending on snapshot or release version, substitutes '${version}' with given version
-        function openUrl(version, releaseUrl, snapshotUrl) {
+        function openUrl(releaseUrl, snapshotUrl) {
             if (typeof snapshotUrl == 'undefined') {
                 snapshotUrl = releaseUrl
             }
-            var url = ((version == "latest") ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, version)
+            var version = getVersion()
+            var latest = currentSnapshot()
+            var versionToken = (version == latest) ? "latest" : version
+            var url = ((version == latest) ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, versionToken)
+            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+        }
+
+        function javadoc(location) {
+            var url = "http://javaslang.com/javadoc/" + getVersion() + "/" + location
             $("<a>").attr("href", url).attr("target", "_blank")[0].click()
         }
 
@@ -383,31 +434,31 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
 
         // init parallax scroller
         $(document).ready(function(){
-           // cache the window object
-           $window = $(window);
-         
-           // intro
-           $('header[data-type="background"], div[data-type="background"]').each(function(){
-             // declare the variable to affect the defined data-type
-             var $scroll = $(this);
-                             
-              $(window).scroll(function() {
-                // HTML5 proves useful for helping with creating JS functions!
-                // also, negative value because we're scrolling upwards                             
-                var yPos = - (($window.scrollTop() - $scroll.position().top) / $scroll.data('speed'));
-                 
-                // background position
-                var coords = '50% '+ yPos + 'px';
-         
-                // move the background
-                $scroll.css({ backgroundPosition: coords });    
-              }); // end window scroll
-           });  // end section function
 
+            initVersions()
+
+            // cache the window object
+            $window = $(window);
+         
+            // intro
+            $('header[data-type="background"], div[data-type="background"]').each(function(){
+                // declare the variable to affect the defined data-type
+                var $scroll = $(this);
+                             
+                $(window).scroll(function() {
+                    // HTML5 proves useful for helping with creating JS functions!
+                    // also, negative value because we're scrolling upwards                             
+                    var yPos = - (($window.scrollTop() - $scroll.position().top) / $scroll.data('speed'));
+                 
+                    // background position
+                    var coords = '50% '+ yPos + 'px';
+         
+                    // move the background
+                    $scroll.css({ backgroundPosition: coords });    
+                }); // end window scroll
+           });  // end section function
         }); // close out script
 
     </script>
-
 </body>
-
 </html>
