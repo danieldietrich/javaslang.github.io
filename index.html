@@ -9,8 +9,9 @@
          * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
          */
         var JAVASLANG_VERSIONS = {
-            "latest": "1.3.0-SNAPSHOT",
+            "latest": "1.2.2-SNAPSHOT",
             "releases": [
+                "1.2.1",
                 "1.2.0",
                 "1.1.0",
                 "1.0.0"
@@ -228,9 +229,6 @@ List.of(1, 2, 3).sum();</code></pre>
                 <pre><code class="language-java">
 // 2, 4, 6, ...
 Stream.gen(1).filter(i -> i % 2 == 0);</code></pre>
-                <p>An experimental, not yet finished feature is the stream processing of blocking input streams.</p>
-                <pre><code class="language-java">
-Stream.stdin().filter(s -> s.startsWith("LOG[ERROR]")).stdout();</code></pre>
             </div>
             <div class="row">
                 <h2>Pattern Matching</h2>
@@ -278,7 +276,7 @@ final A result = Try.of(this::bunchOfWork)
             </div>
             <div class="row">
                 <h2>Property checking</h2>
-                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a not-so-well-known but truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
+                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
                 <pre><code class="language-java">
 final Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
 final CheckResult result = new Property("square(int) &gt;= 0")
