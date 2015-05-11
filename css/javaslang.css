@@ -439,10 +439,10 @@ footer a:hover, a:focus {
 
 .btn-default:hover,
 .btn-default:focus {
-    border: 1px solid #white;
+    border: 1px solid white;
     outline: 0;
     color: #000;
-    background-color: #white;
+    background-color: white;
     background-color: rgba(255,255,255,.4);
 }
 
