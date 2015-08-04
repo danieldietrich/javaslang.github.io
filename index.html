@@ -90,6 +90,13 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
+    <!-- backround & rays -->
+    <div id="background">
+        <div id="raysContainer">
+            <object id="rays" type="image/svg+xml" data="img/rays.svg"></object>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
@@ -117,11 +124,7 @@
     </nav>
 
     <!-- Intro Header -->
-    <header class="intro" data-speed="8" data-type="background">
-        <!-- Sunrays -->
-        <div id="raysContainer">
-            <object id="rays" type="image/svg+xml" data="img/rays.svg"></object>
-        </div>
+    <header class="intro">
         <div class="intro-body">
             <div class="container">
                 <div class="row">
@@ -138,17 +141,19 @@
     </header>
 
     <!-- About Section -->
-    <section id="about" class="container content-section text-center">
+    <section id="about" class="content-section text-center">
         <div class="about-section">
             <div class="container">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <p>
-                        Java 8 introduced <span class="lambda">&lambda;</span> which dramatically increases the expressiveness of our programs, but
-                        <em>&ldquo;Clearly, the JDK APIs won’t help you to write concise functional logic (...)&rdquo;</em> - <a href="http://blog.jooq.org/2015/04/02/how-to-use-java-8-streams-to-swiftly-replace-elements-in-a-list/" target="_blank">jOOQ&trade; blog</a>
-                    </p>
-                    <p>
-                        Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.
-                    </p>
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <p>
+                            Java 8 introduced <span class="lambda">&lambda;</span> which dramatically increases the expressiveness of our programs, but
+                            <em>&ldquo;Clearly, the JDK APIs won’t help you to write concise functional logic (...)&rdquo;</em> - <a href="http://blog.jooq.org/2015/04/02/how-to-use-java-8-streams-to-swiftly-replace-elements-in-a-list/" target="_blank">jOOQ&trade; blog</a>
+                        </p>
+                        <p>
+                            Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,7 +161,7 @@
 
     <!-- Download Section -->
     <section id="download" class="content-section text-center">
-        <div class="download-section" data-speed="10" data-type="background">
+        <div class="download-section">
             <div class="container">
                 <div class="row">
                     <ul class="list-inline">
@@ -211,7 +216,7 @@ compile "com.javaslang:javaslang:snapshot"</code></pre>
     </section>
 
     <!-- Documentation Section -->
-    <section id="documentation" class="container content-section text-center">
+    <section id="documentation" class="content-section text-center">
         <div class="container">
             <div class="row">
                 <h2>Core</h2>
@@ -333,12 +338,25 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
 
     <!-- Contact Section -->
     <section id="contact" class="content-section text-center">
-        <div class="contact-section" data-speed="10" data-type="background">
+        <div class="contact-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h2>Contact</h2>
-                    <p>Feel free to get in touch via Github, Twitter or Email to give some feedback, suggestions or just to browse the code!</p>
+                    <p>Please join the
+                        <a target="_blank" title="Gitter Chat" href="https://gitter.im/javaslang/javaslang">Gitter Chat</a>
+                        to ask questions.<br>
+                        Feature proposals and the source code are available on
+                        <a target="_blank" title="Github"href="https://github.com/javaslang/javaslang">GitHub</a>.<br>
+                        Feel free to contact me directly via <a target="_blank" title="Twitter" href="https://twitter.com/_javaslang">Twitter</a>
+                        or <a target="_blank" title="Email" href="mailto:mail@javaslang.com">Email</a>.
+                    </p>
                     <ul class="list-inline">
+                        <li>
+                            <a class="btn-social btn-outline" target="_blank" title="Gitter Chat" href="https://gitter.im/javaslang/javaslang">
+                                <!-- TODO: fa-gitter instead of fa-align-right and rotation -->
+                                <i class="fa fa-fw fa-align-right" style="transform: rotate(90deg);"></i>
+                            </a>
+                        </li>
                         <li>
                             <a class="btn-social btn-outline" target="_blank" title="Github" href="https://github.com/javaslang/javaslang">
                                 <i class="fa fa-fw fa-github"></i>
@@ -364,7 +382,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
     <div id="links" class="content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <p>&copy; 2014-<span id="copyright_year">2015</span> Daniel Dietrich. All Rights Reserved.</p>
+                    <!-- TODO: links -->
             </div>
         </div>
      </div>
@@ -372,13 +390,20 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <div class="col-lg-8 col-lg-offset-2">
-                <p>This site is built with <a href="http://getbootstrap.com">Bootstrap</a> and is based on the theme <a href="http://startbootstrap.com/template-overviews/grayscale/">Grayscale</a>.</p>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <p>&copy; 2014-<span id="copyright_year">2015</span> Daniel Dietrich. All Rights Reserved.</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script> // @@dd
+    <script>
+
+        // Init Javaslang release and snapshot versions.
+        $(document).ready(function(){
+            initVersions()
+        });
 
         function initVersions() {
             var snapshot = JAVASLANG_VERSIONS.snapshot
@@ -452,33 +477,6 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
         // IE vs new html5 tags fix
         // document.createElement("header");
         // document.createElement("section");
-
-        // init parallax scroller
-        $(document).ready(function(){
-
-            initVersions()
-
-            // cache the window object
-            $window = $(window);
-         
-            // intro
-            $('header[data-type="background"], div[data-type="background"]').each(function(){
-                // declare the variable to affect the defined data-type
-                var $scroll = $(this);
-                             
-                $(window).scroll(function() {
-                    // HTML5 proves useful for helping with creating JS functions!
-                    // also, negative value because we're scrolling upwards                             
-                    var yPos = - (($window.scrollTop() - $scroll.position().top) / $scroll.data('speed'));
-                 
-                    // background position
-                    var coords = '50% '+ yPos + 'px';
-         
-                    // move the background
-                    $scroll.css({ backgroundPosition: coords });    
-                }); // end window scroll
-           });  // end section function
-        }); // close out script
 
     </script>
 </body>
