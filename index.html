@@ -9,7 +9,7 @@
          * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
          */
         var JAVASLANG_VERSIONS = {
-            "latest": "2.0.0-SNAPSHOT",
+            "snapshot": "2.0.0-SNAPSHOT",
             "releases": [
                 "1.2.2",
                 "1.2.1",
@@ -164,7 +164,7 @@
                         <li>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span id="versionSelection">latest</span> <span class="caret"></span>
+                                    <span id="versionSelection">snapshot</span> <span class="caret"></span>
                                 </button>
                                 <ul id="versionList" class="dropdown-menu" role="menu">
                                 </ul>
@@ -194,7 +194,7 @@
                     <div class="col-md-6">
                         <p class="code">Gradle</p>
                         <pre class="code"><code id="gradleDependency" class="language-javascript">
-compile "com.javaslang:javaslang:latest"</code></pre>
+compile "com.javaslang:javaslang:snapshot"</code></pre>
                     </div>
                     <div class="col-md-6">
                         <p class="code">Maven</p>
@@ -202,7 +202,7 @@ compile "com.javaslang:javaslang:latest"</code></pre>
 &lt;dependency&gt;
     &lt;groupId&gt;com.javaslang&lt;/groupId&gt;
     &lt;artifactId&gt;javaslang&lt;/artifactId&gt;
-    &lt;version&gt;latest&lt;/version&gt;
+    &lt;version&gt;snapshot&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
                     </div>
                 </div>
@@ -381,9 +381,9 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
     <script> // @@dd
 
         function initVersions() {
-            var latest = JAVASLANG_VERSIONS.latest
+            var snapshot = JAVASLANG_VERSIONS.snapshot
             var list = $("#versionList")
-            list.append('<li><a href="#" onclick="setVersion(\'' + latest + '\'); return false;">' + latest + '</a></li>')
+            list.append('<li><a href="#" onclick="setVersion(\'' + snapshot + '\'); return false;">' + snapshot + '</a></li>')
             list.append('<li class="divider"></li>')
             var releases = JAVASLANG_VERSIONS.releases
             var length = releases.length
@@ -399,7 +399,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
         }
 
         function currentSnapshot() {
-            return JAVASLANG_VERSIONS.latest
+            return JAVASLANG_VERSIONS.snapshot
         }
 
         // returns the selected Javaslang version (see download section)
@@ -415,7 +415,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
         }
 
         // prequisites: the elements #versionSelection, #mavenDependencies and #gradeleDependencies
-        //              have to be initialized with the same value (i.e. 'latest')
+        //              have to be initialized with the same value (i.e. 'snapshot')
         function updateDependencies(previousVersion, version) {
 
             function setDependency(cssSelector) {
@@ -434,9 +434,9 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
                 snapshotUrl = releaseUrl
             }
             var version = getVersion()
-            var latest = currentSnapshot()
-            var versionToken = (version == latest) ? "latest" : version
-            var url = ((version == latest) ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, versionToken)
+            var snapshot = currentSnapshot()
+            var versionToken = (version == snapshot) ? "snapshot" : version
+            var url = ((version == snapshot) ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, versionToken)
             $("<a>").attr("href", url).attr("target", "_blank")[0].click()
         }
 
