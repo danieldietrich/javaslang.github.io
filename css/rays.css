@@ -1,7 +1,3 @@
-/*
- * Sunrays animation (see http://davidwalsh.name/css-spin-revisited)
- */
-
 /* basic structure for the rays setup */
 #raysContainer {
     position: absolute;
@@ -14,46 +10,26 @@
     overflow: hidden;
 }
 
-#raysPosition {
-    position: relative;
-    width: 490px;
-    margin: 13% auto 0;
-    transform: translateY(-13%);
-}
+#rays {
+    display: block;
+    opacity: 0.1;
 
-/* TODO:
-#raysLogo { 
-    width: 300px; 
-    height: 233px; 
-    text-indent: -3000px; 
-    background: url(../img/logo.png) 0 0 no-repeat; 
-    display: block; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    z-index: 2; 
-}
-*/
+    /* center oversized rays */
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
 
-#rays   { /* with animation properties */
-    background: url(../img/rays.png) 0 0 no-repeat;
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 490px;
-    height: 490px;
+    /* animation properties */
     animation-name: spin; 
-    animation-duration: 40000ms;
+    animation-duration: 66666ms;
     animation-iteration-count: infinite; 
     animation-timing-function: linear;
 }
 
-#rays:hover {
-    /* animation-duration: 10000ms; 10 seconds - speed it up on hover! */
-    /* resets the position though!  sucks */
-}
-
-/* keyframes for animation;  simple 0 to 360 */
+/* keyframes for animation; simple 0 to 360 */
 
 /* Standard */
 @keyframes spin {
