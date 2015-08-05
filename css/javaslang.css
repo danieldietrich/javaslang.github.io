@@ -22,8 +22,19 @@ body {
     z-index: -9999;
     background: url(../img/bg.jpg) 50% 0 no-repeat scroll;
     background-size: cover;
-    background-repeat: no-repeat;
     background-color: black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#lambda {
+    position: fixed;
+    background: url(../img/lambda.png) 50% 50% no-repeat scroll;
+    opacity: 0.05;
     top: 0;
     left: 0;
     right: 0;

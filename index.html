@@ -92,6 +92,7 @@
 
     <!-- backround & rays -->
     <div id="background">
+        <div id="lambda"></div>
         <div id="raysContainer">
             <object id="rays" type="image/svg+xml" data="img/rays.svg"></object>
         </div>
@@ -221,7 +222,7 @@ compile "com.javaslang:javaslang:snapshot"</code></pre>
             <div class="row">
                 <h2>Core</h2>
                 <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> and <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a>.</p>
-                <img class="img-responsive" src="img/doc-tuple_lambda.png"/>
+                <img class="img-responsive" src="doc/doc-tuple_lambda.png"/>
                 <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="#" onclick="javadoc('javaslang/CheckedFunction0.html'); return false;">CheckedFunction0</a> to <a href="#" onclick="javadoc('javaslang/CheckedFunction26.html'); return false;">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
                 <pre><code class="language-java">
 // may throw when called
@@ -238,7 +239,7 @@ final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);</code></p
             <div class="row">
                 <h2>Collections</h2>
                 <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
-                <img class="img-responsive" src="img/doc-collections.png"/>
+                <img class="img-responsive" src="doc/doc-collections.png"/>
                 <p>The new collections are based on <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>, so they leverage the sugared iteration style.</p>
                 <pre><code class="language-java">
 // 1000 random numbers
