@@ -322,14 +322,14 @@ pre.code {
 footer {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     padding: 13px 0;
-    color: #333; /* IE8 proofing */
-    background-color: #666;
+    color: white; /* IE8 proofing */
+    background-color: rgba(96, 96, 96, 0.6);
     text-align: center;
 }
 
 footer p {
     margin: 0;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 footer a {
