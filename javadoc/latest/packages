@@ -1,5 +1,5 @@
 javaslang
-javaslang.test
 javaslang.control
-javaslang.concurrent
 javaslang.collection
+javaslang.concurrent
+javaslang.test
