@@ -164,17 +164,17 @@
                     </ul>
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
+                            <a id="browseJavadoc" href="#" target="_blank" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-code-o fa-fw"></i> Browse Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
+                            <a id="downloadJavadoc" href="#" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-zip-o fa-fw"></i> Download Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl('https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
+                            <a id="openRepo" href="#" target="_blank" class="btn btn-default btn-lg">
                                 <i class="fa fa-github fa-fw"></i> Source Code
                             </a>
                         </li>
@@ -401,6 +401,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
         function setVersion(version) {
             var previousVersion = getVersion()
             updateDependencies(previousVersion, version)
+            updateLinks(version)
             $("#versionSelection").text(version)
         }
 
@@ -419,21 +420,19 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
         }
 
         // opens a url depending on snapshot or release version, substitutes '${version}' with given version
-        function openUrl(releaseUrl, snapshotUrl) {
-            if (typeof snapshotUrl == 'undefined') {
-                snapshotUrl = releaseUrl
-            }
-            var version = getVersion()
+        function updateLinks(version) {
             var latest = currentSnapshot()
             var versionToken = (version == latest) ? "latest" : version
-            var url = ((version == latest) ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, versionToken)
-            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+            var repoUrl = (version == latest) ? "https://github.com/javaslang/javaslang" : ("https://github.com/javaslang/javaslang/tree/javaslang-" + versionToken)
+            $("#browseJavadoc").attr("href", "http://javaslang.com/javadoc/" + versionToken + "/index.html")
+            $("#downloadJavadoc").attr("href", "http://javaslang.com/javadoc/" + versionToken + "/javaslang-" + versionToken + "-javadoc.zip")
+            $("#openRepo").attr("href", repoUrl)
         }
 
         // the javadoc of the current release is displayed
         function javadoc(location) {
             var url = "http://javaslang.com/javadoc/" + currentRelease() + "/" + location
-            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+            $("<a>").attr("href", url)[0].click()
         }
 
         // set year
