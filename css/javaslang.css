@@ -247,6 +247,21 @@ pre.code {
     font-size: 40px;
 }
 
+.brand-heading > div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.brand-heading > div.S {
+    letter-spacing: 0;
+    font-size: 0.24em;
+}
+.brand-heading > div.S > span.transparent {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .intro .intro-body .intro-text {
     font-size: 18px;
 }
