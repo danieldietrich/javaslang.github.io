@@ -189,12 +189,12 @@
                     </ul>
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openUrl('./javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-code-o fa-fw"></i> Browse Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl('http://javaslang.com/javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openUrl('./javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-zip-o fa-fw"></i> Download Javadoc
                             </a>
                         </li>
@@ -229,87 +229,287 @@ compile "com.javaslang:javaslang:snapshot"</code></pre>
     <section id="documentation" class="content-section text-center">
         <div class="container">
             <div class="row">
-                <h2>Overview</h2>
-                <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> and <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a>.</p>
-                <img class="img-responsive" src="img/doc-overview.png"/>
-                <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="#" onclick="javadoc('javaslang/CheckedFunction0.html'); return false;">CheckedFunction0</a> to <a href="#" onclick="javadoc('javaslang/CheckedFunction26.html'); return false;">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
-                <pre><code class="language-java">
-// may throw when called
-final Try.CheckedRunnable performIO = () -> { ... };
+                <h2>Core</h2>
+                <p>
+                    Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> and <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a>.
+                </p>
+                <a href="#" onclick="javadoc('javaslang/package-summary.html'); return false;">
+                    <img class="img-responsive" src="img/doc-tuple-lambda-value.png"/>
+                </a>
+                <h3>Tuples</h3>
+                <p>
+                    Java is missing a general notion of tuples. <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> fills this gap.
+                </p>
+<pre><code class="language-java">
+// (Java, 8)
+final Tuple2&lt;String, Integer&gt; java8 = Tuple.of("Java", 8);
+
+// (Javaslang, 2)
+final Tuple2&lt;String, Integer&gt; guessWhat = java8.map(
+    (s, i) -&gt; Tuple.of(s + "slang", i / 4)
+);
+
+// and yes, java8 is still (Java, 8)
 </code></pre>
-                <p><a href="#" onclick="javadoc('javaslang/Function0.html'); return false;">Function0</a> to <a href="#" onclick="javadoc('javaslang/Function26.html'); return false;">Function26</a> are unchecked functions, i.e. they may throw RuntimeException or Error. Checked and unchecked functions are enriched to make function handling a breeze. They are designed to play well together with collections and control structures.</p>
-                <pre><code class="language-java">
+                <h3>Functions</h3>
+                <p>
+                    Functional programming is all about <a href="#" onclick="javadoc('javaslang/Value.html'); return false;">values</a> and transformation of values using <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">functions</a>. Some basic examples are:
+                </p>
+<pre><code class="language-java">
 // sum.apply(1, 3) = 4
 final Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
 
 // add2.apply(1) = 3
-final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);</code></pre>
-            </div>
-            <div class="row">
-                <h2>Tuples</h2>
-                <p><code class="language-java">Tuple.of("Java", 8)</code></p>
-                <p></p>
-            </div>
-            <div class="row">
-                <h2>Functions</h2>
-                <p><code class="language-java">Function1.lift(Object::hashCode)</code></p>
-            </div>
-            <div class="row">
-                <h2>Values</h2>
-                <p><code class="language-java">value.ifDefined("&#x22a4;", "&#x22a5;")</code></p>
+final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);
+</code></pre>
+                <p>
+                    In fact <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a> is a functional interface on steroids times 10.
+                </p>
+<pre><code class="language-java">
+// computes the hash code of an object
+final Function1&lt;Object, Integer&gt; hash = Object::hashCode;
+
+// computes the hash once, then reads from cache
+final Function&lt;Object, Integer&gt; hashCache =
+        Function1.lift(Object::hashCode).memoized();
+
+// ciao type erasure, hi Integer.class!
+final Class&lt;?&gt; returnType = hash.getType().returnType();
+</code></pre>
+                <p>
+                    Checked functions are indispensable when dealing with exceptions in a functional way.
+                </p>
+<pre><code class="language-java">
+// may throw when called
+final Try.CheckedRunnable performIO = () -&gt; { ... };
+
+// handling failure in a functional way
+Try.run(performIO).onFailure(...);
+</code></pre>
+                <h3>Values</h3>
+                <p>
+                    In a functional setting we see a value as a kind of <a href="https://en.wikipedia.org/wiki/Normal_form_(abstract_rewriting)" target="_blank">normal form</a>, it cannot be further evaluated. In Java we express this by making the state of an object final and call it <a href="https://en.wikipedia.org/wiki/Immutable_object" target="_blank">immutable</a>.
+                </p>
+                <p>
+                    Javaslang's functional <a href="#" onclick="javadoc('javaslang/Value.html'); return false;">Value</a> abstracts over immutable objects. Efficient write operations are added by sharing immutable memory between instances. What we get is thread-safety for free!
+                </p>
+<pre><code class="language-java">
+// future *value*, result of an async calculation
+final Future&lt;T&gt; future = Future.of(...);
+
+// lazy *value*, evaluated once and when needed
+final Lazy&lt;T&gt; lazy = Lazy.of(...);
+
+// optional *value*, no more nulls
+final Option&lt;T&gt; option = Option.of(...);
+
+// *value* of a possibly failing computation
+final Try&lt;T&gt; tryy = Try.of(...);
+
+// a list of *values*
+final List&lt;T&gt; list = List.of(...);
+
+// all of the above (here: value) obey:
+final String s = value.filter(...).ifDefined("yay", "noes");
+</code></pre>
+                <p>
+                    In Javaslang, all is built upon these three basic building blocks shown above. But the possibilities are (countably) infinite...
+                </p>
+                <img class="img-responsive" src="img/doc-overview.png"/>
             </div>
             <div class="row">
                 <h2>Collections</h2>
-                <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
-                <p>The new collections are based on <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>, so they leverage the sugared iteration style.</p>
-                <pre><code class="language-java">
+                <p>
+                    With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
+                <p>
+                     Java's Stream lifts a computation to a different layer and links to a specific collection in another explicit step. Whith Javaslang we don't need all this additional boilerplate.
+                </p>
+                <p>
+                    The new collections are based on <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>, so they leverage the sugared iteration style.
+                </p>
+<pre><code class="language-java">
 // 1000 random numbers
 for (double random : Stream.gen(Math::random).take(1000)) {
     ...
 }</code></pre>
-                <p><a href="#" onclick="javadoc('javaslang/collection/Traversable.html'); return false;">Traversable</a> has a huge amount of useful functions to operate on the collection. Its API is similar to <a href="http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">java.util.stream.Stream</a> but more mature. Set and Map will come in a future release, Tree will implement Traversable.</p>
+                <p>
+                    <a href="#" onclick="javadoc('javaslang/collection/TraversableOnce.html'); return false;">TraversableOnce</a> has a huge amount of useful functions to operate on the collection. Its API is similar to <a href="http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html" target="_blank">java.util.stream.Stream</a> but more mature.
+                </p>
             </div>
             <div class="row">
                 <h3>List</h3>
-                <p>Javaslang's <a href="#" onclick="javadoc('javaslang/collection/List.html'); return false;">List</a> is an immutable linked list. Mutations create new instances. Most operations are performed in linear time. Consequent operations are executed one by one.</p>
+                <p>
+                    Javaslang's <a href="#" onclick="javadoc('javaslang/collection/List.html'); return false;">List</a> is an immutable linked list. Mutations create new instances. Most operations are performed in linear time. Consequent operations are executed one by one.
+                </p>
                 <div class="col-md-6">
                     <h2 class="label">Java 8</h2>
-                    <pre><code class="language-java">
-Arrays.asList(1, 2, 3).stream().reduce((i, j) -&gt; i + j);</code></pre>
-                    <pre><code class="language-java">
-IntStream.of(1, 2, 3).sum();</code></pre>
+<pre><code class="language-java">
+Arrays.asList(1, 2, 3).stream().reduce((i, j) -&gt; i + j);
+</code></pre>
+<pre><code class="language-java">
+IntStream.of(1, 2, 3).sum();
+</code></pre>
                 </div>
                 <div class="col-md-6">
                     <h2 class="label">Javaslang</h2>
-                    <pre><code class="language-java">
+<pre><code class="language-java">
 // javaslang.collection.List
-List.of(1, 2, 3).sum();</code></pre>
+List.of(1, 2, 3).sum();
+</code></pre>
                 </div>
             </div>
             <div class="row">
                 <h3>Stream</h3>
-                <p>The <a href="#" onclick="javadoc('javaslang/collection/Stream.html'); return false;">javaslang.collection.Stream</a> implementation is a lazy linked list. Values are computed only when needed. Because of its laziness, most operations are performed in constant time. Operations are intermediate in general and executed in a single pass.</p>
-                <p>The stunning thing about streams is that we can use them to represent sequences that are (theoretically) infinitely long.</p>
-                <pre><code class="language-java">
+                <p>
+                    The <a href="#" onclick="javadoc('javaslang/collection/Stream.html'); return false;">javaslang.collection.Stream</a> implementation is a lazy linked list. Values are computed only when needed. Because of its laziness, most operations are performed in constant time. Operations are intermediate in general and executed in a single pass.
+                </p>
+                <p>
+                    The stunning thing about streams is that we can use them to represent sequences that are (theoretically) infinitely long.
+                </p>
+<pre><code class="language-java">
 // 2, 4, 6, ...
-Stream.gen(1).filter(i -> i % 2 == 0);</code></pre>
+Stream.gen(1).filter(i -> i % 2 == 0);
+</code></pre>
+            </div>
+            <div class="row">
+                <h3>Performance Characteristics</h3>
+                <table cellpadding="5" cellspacing="0" border="1" style="border-collapse: collapse">
+                    <caption>Time Complexity of Sequential Operations</caption>
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>head()</th>
+                            <th>tail()</th>
+                            <th>get(int)</th>
+                            <th>update(int, T)</th>
+                            <th>prepend(T)</th>
+                            <th>append(T)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/Array.html'); return false;">Array</a></td><td><small>const</small></td><td><small>linear</small></td><td><small>const</small></td><td><small>const</small></td><td><small>linear</small></td><td><small>linear</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/CharSeq.html'); return false;">CharSeq</a></td><td><small>const</small></td><td><small>linear</small></td><td><small>const</small></td><td><small>linear</small></td><td><small>linear</small></td><td><small>linear</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/Iterator.html'); return false;">Iterator</a></td><td><small>const</small></td><td><small>const</small></td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/List.html'); return false;">List</a></td><td><small>const</small></td><td><small>const</small></td><td><small>linear</small></td><td><small>linear</small></td><td><small>const</small></td><td><small>linear</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/Queue.html'); return false;">Queue</a></td><td><small>const</small></td><td><small>const<sup>a</sup></small></td><td><small>linear</small></td><td><small>linear</small></td><td><small>const</small></td><td><small>const</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/Stream.html'); return false;">Stream</a></td><td><small>const</small></td><td><small>const</small></td><td><small>linear</small></td><td><small>linear</small></td><td><small>const<sup>lazy</sup></small></td><td><small>const<sup>lazy</sup></small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/Vector.html'); return false;">Vector</a></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td></tr>
+                    </tbody>
+                </table>
+                <br/>
+                <table cellpadding="5" cellspacing="0" border="1" style="border-collapse: collapse">
+                    <caption>Time Complexity of Map/Set Operations</caption>
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>contains/Key</th>
+                            <th>add/put</th>
+                            <th>remove</th>
+                            <th>min</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/HashMap.html'); return false;">HashMap</a></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/HashSet.html'); return false;">HashSet</a></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td><td><small>const<sup>eff</sup></small></td></tr>
+                        <tr><td><em><a href="#" onclick="javadoc('javaslang/collection/Tree.html'); return false;">Tree</a></em></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/TreeMap.html'); return false;">TreeMap</a></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td></tr>
+                        <tr><td><a href="#" onclick="javadoc('javaslang/collection/TreeSet.html'); return false;">TreeSet</a></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td><td><small>log</small></td></tr>
+                    </tbody>
+                </table>
+                <br>
+                <table cellpadding="5" cellspacing="0" border="0" style="border-collapse: collapse">
+                    <caption>Legend</caption>
+                    <tbody  style="text-align: left">
+                        <tr>
+                            <td><small>const</small>&nbsp;&middot;&nbsp;constant time</td>
+                        </tr>
+                        <tr>
+                            <td><small>const<sup>a</sup></small>&nbsp;&middot;&nbsp;amotized constant time, few operations may take longer</td>
+                        </tr>
+                        <tr>
+                            <td><small>const<sup>eff</sup></small>&nbsp;&middot;&nbsp;effectively constant time, depending on assumptions like distribution of hash keys</td>
+                        </tr>
+                         <tr>
+                            <td><small>const<sup>lazy</sup></small>&nbsp;&middot;&nbsp;lazy constant time, the operation is deferred</td>
+                        </tr>
+                         <tr>
+                            <td><small>log</small>&nbsp;&middot;&nbsp;logarithmic time</td>
+                         </tr>
+                         <tr>
+                            <td><small>linear</small>&nbsp;&middot;&nbsp;linear time</td>
+                        </tr>
+                     </tbody>
+                </table>
             </div>
             <div class="row">
                 <h2>Pattern Matching</h2>
-                <p>Objects are matched by type with lambdas of <a href="http://en.wikipedia.org/wiki/Arity" target="_blank">arity</a> 1.</p>
-                <pre><code class="language-java">
-final Predicate&lt;InputStream&gt; isBuffered = (InputStream in) -> Match
-    .caze((BufferedInputStream b) -> true)
-    .orElse(false)
-    .apply(in);</code></pre>
-                <p>All classes representing data in Javaslang are of type <a href="#" onclick="javadoc('javaslang/ValueObject.html'); return false;">ValueObject</a>. A ValueObject has an identity based on the encapsulated data, it is decomposable into its parts and serializable. A future version of the match API will take advantage of decomposability.</p>
+                <p>
+                    Javaslang's pattern matching feature goes far beyond Java's switch.
+                </p>
+<pre><code class="language-java">
+Stream.of(0, 1, 2, 3, 13, 14, null, -1)
+        .peek(n -> out.print(format("%d -> ", n)))
+        .map(Match.as(Object.class) // Match function (with apply(Object))
+                .when(Objects::isNull).then("!")
+                .whenIs(0).then("zero")
+                .whenIsIn(1, 13, 14).then(i -> "first digit 1: " + i)
+                .whenType(Double.class).then(d -> "Found a double: " + d)
+                .whenApplicable((Number num) -> "number: " + num).thenApply()
+                .otherwise(() -> "no match"))
+        .map(MatchingTest::toString)
+        .forEach(out::println);
+out.flush(); // Avoid mixing sout and serr
+
+// Match monad (with map(), flatMap(), get(), orElse(), orElseGet(), orElseThrow(), etc.)
+for (String s : Match.of(0)
+        .whenType(Number.class).then(Object::toString)
+        .otherwise("unknown")
+        .map(String::toUpperCase)) {
+    out.println(s);
+}
+</code></pre>
+                <p>
+                    Javaslang allows to match more special objects by more general cases:
+                </p>
+<pre><code class="language-java">
+// Match as Monad
+Match.of(new Some&lt;&gt;(1))
+     .whenApplicable((Option&lt;Integer&gt; i) -&gt; true).thenApply()
+     .get(); // = true
+
+Match.of(new Some&lt;&gt;(1))
+     .whenType(Option.class).then(true)
+     .get(); // = true
+
+// Match as Function
+Match.whenApplicable((Option&lt;Integer&gt; i) -&gt; true).thenApply()
+     .apply(new Some&lt;&gt;(1)); // = true
+
+Match.whenType(Option.class).then(true)
+     .apply(new Some&lt;&gt;(1)); // = true
+</code></pre>
+                <p>
+                    The opposite is also possible, to match more general objects by more special cases:
+                </p>
+<pre><code class="language-java">
+// Match as Monad
+Match.of(Option.of(1))
+     .whenIs(new Some&lt;&gt;(1)).then(true)
+     .get(); // = true
+
+// Match as Function
+Match.whenIs(new Some&lt;&gt;(1)).then(true)
+     .apply(Option.of(1)); // = true
+</code></pre>
             </div>
             <div class="row">
                 <h2>Failure Handling</h2>
-                <p>The <a href="#" onclick="javadoc('javaslang/control/Try.html'); return false;">Try</a> monad aims to ease exception handling. It represents the result state of a computation which may be a <a href="#" onclick="javadoc('javaslang/control/Success.html'); return false;">Success</a> or a <a href="#" onclick="javadoc('javaslang/control/Failure.html'); return false;">Failure</a>.</p>
+                <p>
+                    The <a href="#" onclick="javadoc('javaslang/control/Try.html'); return false;">Try</a> monad aims to ease exception handling. It represents the result state of a computation which may be a <a href="#" onclick="javadoc('javaslang/control/Success.html'); return false;">Success</a> or a <a href="#" onclick="javadoc('javaslang/control/Failure.html'); return false;">Failure</a>.
+                </p>
                 <div class="col-md-6">
                     <h2 class="label">Java 8</h2>
-                    <pre><code class="language-java">
+<pre><code class="language-java">
 // cannot be final
 A result = other;
 try {
@@ -324,36 +524,48 @@ try {
                 </div>
                 <div class="col-md-6">
                     <h2 class="label">Javaslang</h2>
-                    <pre><code class="language-java">
+<pre><code class="language-java">
 // no need to handle exceptions
-Try.of(() -> bunchOfWork()).orElse(other);</code></pre>
-                    <pre><code class="language-java">
+Try.of(() -> bunchOfWork()).orElse(other);
+</code></pre>
+<pre><code class="language-java">
 final A result = Try.of(this::bunchOfWork)
-    .recover(x -> Match
-        .caze((Exception_1 e) -> ...)
-        .caze((Exception_2 e) -> ...)
-        .caze((Exception_n e) -> ...)
-        .apply(x))
-    .orElse(other);</code></pre>
+    .recover(x -&gt; Match.of(x)
+        .whenType(Exception_1.class).then(...)
+        .whenType(Exception_2.class).then(...)
+        .whenType(Exception_n.class).then(...)
+        .get())
+    .orElse(other);
+</code></pre>
                 </div>
-                <p>Similar to collections it has the functions map() and flatMap() to further process results.</p>
+                <p>
+                    Similar to collections it has the functions map() and flatMap() to further process results.
+                </p>
             </div>
             <div class="row">
                 <h2>Property checking</h2>
-                <p>Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.</p>
-                <pre><code class="language-java">
+                <p>
+                    Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.
+                </p>
+<pre><code class="language-java">
 final Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
+
+// square(int) &gt;= 0: OK, passed 1000 tests.
 final CheckResult result = new Property("square(int) &gt;= 0")
         .forAll(ints)
         .suchThat(i -> (i * i) &gt;= 0)
         .check();
-// square(int) &gt;= 0: OK, passed 1000 tests.
-CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
-                <p>Generators of complex data structures are composed of simple generators.
+        .assertIsSatisfied();
+</code></pre>
+                <p>
+                    Generators of complex data structures are composed of simple generators.
+                </p>
             </div>
             <div class="row">
                 <h2>To be continued...</h2>
-                <p>Javaslang has more useful data types not documented here, yet. The <a href="#" onclick="javadoc('javaslang/control/Option.html'); return false;">Option</a> type is good for null-safe programming. It is a replacement for <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank">java.util.Optional</a>. <a href="#" onclick="javadoc('javaslang/control/Either.html'); return false;">Either</a> is a disjoint union type and there are also a growing amount of algebraic data types like, <a href="#" onclick="javadoc('javaslang/algebra/Monoid.html'); return false;">Monoid</a>, <a href="#" onclick="javadoc('javaslang/algebra/Functor1.html'); return false;">Functor1</a> to <a href="#" onclick="javadoc('javaslang/algebra/Functor26.html'); return false;">Functor26</a> and <a href="#" onclick="javadoc('javaslang/algebra/Monad1.html'); return false;">Monad1</a> to <a href="#" onclick="javadoc('javaslang/algebra/Monad26.html'); return false;">Monad26</a>.</p>
+                <p>
+                    Javaslang has more useful data types not documented here, yet. The <a href="#" onclick="javadoc('javaslang/control/Option.html'); return false;">Option</a> type is good for null-safe programming. It is a replacement for <a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank">java.util.Optional</a>. <a href="#" onclick="javadoc('javaslang/control/Either.html'); return false;">Either</a> is a disjoint union type and there much more...
+                </p>
             </div>
         </div>
     </section>
@@ -489,7 +701,7 @@ CheckResultAssertions.assertThat(result).isSatisfied();</code></pre>
 
         // the javadoc of the current release is displayed
         function javadoc(location) {
-            var url = "http://javaslang.com/javadoc/" + currentRelease() + "/" + location
+            var url = "./javadoc/" + currentRelease() + "/" + location
             $("<a>").attr("href", url).attr("target", "_blank")[0].click()
         }
 
