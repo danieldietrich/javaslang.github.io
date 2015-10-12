@@ -9,8 +9,9 @@
          * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
          */
         var JAVASLANG_VERSIONS = {
-            "snapshot": "2.0.0-SNAPSHOT",
+            "snapshot": "2.0.0-RC1-SNAPSHOT",
             "releases": [
+                "2.0.0-beta",
                 "1.2.2",
                 "1.2.1",
                 "1.2.0",
@@ -228,9 +229,9 @@ compile "com.javaslang:javaslang:snapshot"</code></pre>
     <section id="documentation" class="content-section text-center">
         <div class="container">
             <div class="row">
-                <h2>Core</h2>
+                <h2>Overview</h2>
                 <p>Javaslang comes along with well designed representations of some of the most basic types which apparently are missing or rudimentary in Java, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">Tuple</a> and <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a>.</p>
-                <img class="img-responsive" src="doc/doc-tuple_lambda.png"/>
+                <img class="img-responsive" src="img/doc-overview.png"/>
                 <p>Java 8 has <a href="http://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html" target="_blank">java.util.function.Function</a> which is unchecked, i.e. its functional interface does not throw. Use <a href="#" onclick="javadoc('javaslang/CheckedFunction0.html'); return false;">CheckedFunction0</a> to <a href="#" onclick="javadoc('javaslang/CheckedFunction26.html'); return false;">CheckedFunction26</a> or one of the other functions provided, if you need to throw.</p>
                 <pre><code class="language-java">
 // may throw when called
@@ -245,9 +246,21 @@ final Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
 final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);</code></pre>
             </div>
             <div class="row">
+                <h2>Tuples</h2>
+                <p><code class="language-java">Tuple.of("Java", 8)</code></p>
+                <p></p>
+            </div>
+            <div class="row">
+                <h2>Functions</h2>
+                <p><code class="language-java">Function1.lift(Object::hashCode)</code></p>
+            </div>
+            <div class="row">
+                <h2>Values</h2>
+                <p><code class="language-java">value.ifDefined("&#x22a4;", "&#x22a5;")</code></p>
+            </div>
+            <div class="row">
                 <h2>Collections</h2>
                 <p>With Javaslang there has been put much effort into designing an all-new collection library for Java which meets the requirements of functional programming, namely immutability.</p>
-                <img class="img-responsive" src="doc/doc-collections.png"/>
                 <p>The new collections are based on <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html" target="_blank">java.lang.Iterable</a>, so they leverage the sugared iteration style.</p>
                 <pre><code class="language-java">
 // 1000 random numbers

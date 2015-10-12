@@ -221,6 +221,12 @@ pre.code {
     font-size: 1.1em !important;
 }
 
+/* overrides prism.css defaults */
+code {
+    border: none !important;
+    font-size: 1.3em;
+}
+
 .intro {
     position: relative; 
     display: table;
