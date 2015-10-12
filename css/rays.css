@@ -1,0 +1,83 @@
+/* basic structure for the rays setup */
+#raysContainer {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    animation: fadein 6s ease-in;
+}
+
+@media(min-width:767px) {
+    #raysContainer {
+        display: block;
+    }
+}
+
+#rays {
+    /* center oversized rays */
+    position: absolute;
+    top: -9999px;
+    bottom: -9999px;
+    left: -9999px;
+    right: -9999px;
+    margin: auto;
+
+    opacity: .05;
+
+    animation-name: spin; 
+    animation-duration: 66666ms;
+    animation-iteration-count: infinite; 
+    animation-timing-function: linear;*/
+}
+
+/* == Keyframes for opacity animation == */
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-o-keyframes fadein { /* Opera */
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-ms-keyframes fadein { /* Firefox */
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* == Keyframes for spin animation == */
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-o-keyframes spin {
+    from { -o-transform: rotate(0deg); }
+    to { -o-transform: rotate(360deg); }
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}

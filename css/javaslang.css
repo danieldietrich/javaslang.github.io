@@ -14,7 +14,37 @@ body {
     height: 100%;
     font-family: Noto Serif,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
-    background-color: #000;
+    background-color: black;
+}
+
+#background {
+    position: fixed;
+    z-index: -9999;
+    background: url(../img/bg.jpg) 50% 0 no-repeat scroll;
+    background-size: cover;
+    background-color: black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#lambda {
+    position: fixed;
+    background: url(../img/lambda.png) 50% 50% no-repeat scroll;
+    opacity: 0.05;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    background-color: black;
 }
 
 h1,
@@ -113,7 +143,7 @@ a:focus {
 .navbar-custom {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #000;
 }
@@ -191,6 +221,12 @@ pre.code {
     font-size: 1.1em !important;
 }
 
+/* overrides prism.css defaults */
+code {
+    border: none !important;
+    font-size: 1.3em;
+}
+
 .intro {
     position: relative; 
     display: table;
@@ -200,8 +236,8 @@ pre.code {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(../img/bg-intro.jpg) 50% 0 no-repeat scroll;
-    background-color: #000;
+    background-color: transparent;
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -215,6 +251,21 @@ pre.code {
 
 .intro .intro-body .brand-heading {
     font-size: 40px;
+}
+
+.brand-heading > div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.brand-heading > div.S {
+    letter-spacing: 0;
+    font-size: 0.24em;
+}
+.brand-heading > div.S > span.transparent {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .intro .intro-body .intro-text {
@@ -245,28 +296,26 @@ pre.code {
 }
 
 .about-section {
-    width: 100%;
     color: #fff;
-    background-color: #000;
+    width: 100%;
 }
 
 #download {
-    padding-top: 150px;
+    background: transparent;
 }
+
 .download-section {
-    width: 100%;
-    padding: 50px 0;
     color: #fff;
-    background: url(../img/bg-download.jpg) 50% 0 no-repeat scroll;
-    background-color: #000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+    padding: 50px 0;
+    width: 100%;
 }
 
 #downloadVersion {
     vertical-align: middle;
+}
+
+#contact {
+    background: transparent;
 }
 
 .contact-section {
@@ -275,17 +324,12 @@ pre.code {
     margin: 0 auto; 
     padding: 50px 0;
     color: #fff;
-    background: url(../img/bg-contact.jpg) 50% 0 no-repeat scroll;
-    background-color: #000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+    background-color: transparent;
 }
 
 #links {
     width: 100%;
-    background-color: #333;
+    background-color: transparent;
     padding: 100px 0;
     text-align: center;
     color: #777;
@@ -299,14 +343,14 @@ pre.code {
 footer {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     padding: 13px 0;
-    color: #333; /* IE8 proofing */
-    background-color: #666;
+    color: white; /* IE8 proofing */
+    background-color: rgba(96, 96, 96, 0.6);
     text-align: center;
 }
 
 footer p {
     margin: 0;
-    font-size: 0.7em;
+    font-size: 0.9em;
 }
 
 footer a {
@@ -319,24 +363,8 @@ footer a:hover, a:focus {
 
 @media(min-width:767px) {
     .content-section {
-        padding-top: 250px;
-    }
-
-    .about-section {
-        padding: 10px 0;
-    }
-
-    .download-section {
-        padding: 100px 0;
-    }
-
-    .contact-section {
-        padding: 100px 0;
-    }
-
-    #links {
-        height: 100px;
-        margin-top: 250px;
+        padding-top: 200px;
+        padding-bottom: 200px;
     }
 }
 
