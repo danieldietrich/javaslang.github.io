@@ -298,7 +298,7 @@ Try.run(performIO).onFailure(...);
 // future *value*, result of an async calculation
 final Future&lt;T&gt; future = Future.of(...);
 
-// lazy *value*, evaluated once and when needed
+// lazy *value*, evaluated once
 final Lazy&lt;T&gt; lazy = Lazy.of(...);
 
 // optional *value*, no more nulls
@@ -314,7 +314,7 @@ final List&lt;T&gt; list = List.of(...);
 final String s = value.filter(...).ifDefined("yay", "noes");
 </code></pre>
                 <p>
-                    In Javaslang, all is built upon these three basic building blocks shown above. But the possibilities are (countably) infinite...
+                    In Javaslang, all is built upon these three basic building blocks, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">tuples</a>, <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">functions</a> and <a href="#" onclick="javadoc('javaslang/Value.html'); return false;">values</a>. The possibilities are (countably) infinite...
                 </p>
                 <img class="img-responsive" src="img/doc-overview.png"/>
             </div>
