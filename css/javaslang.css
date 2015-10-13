@@ -221,12 +221,6 @@ pre.code {
     font-size: 1.1em !important;
 }
 
-/* overrides prism.css defaults */
-code {
-    border: none !important;
-    font-size: 1.3em;
-}
-
 .intro {
     position: relative; 
     display: table;
@@ -253,19 +247,16 @@ code {
     font-size: 40px;
 }
 
+img.brand-heading {
+    width: 40px;
+    height: 40px;
+}
+
 .brand-heading > div {
     display: inline-block;
     vertical-align: middle;
     margin: 0;
     padding: 0;
-}
-
-.brand-heading > div.S {
-    letter-spacing: 0;
-    font-size: 0.24em;
-}
-.brand-heading > div.S > span.transparent {
-    color: rgba(255, 255, 255, 0.5);
 }
 
 .intro .intro-body .intro-text {
@@ -284,6 +275,11 @@ code {
 
     .intro .intro-body .intro-text {
         font-size: 25px;
+    }
+
+    img.brand-heading {
+        width: 100px;
+        height: 100px;
     }
 }
 
