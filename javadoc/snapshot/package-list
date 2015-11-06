@@ -1,4 +1,5 @@
 javaslang
+javaslang.algebra
 javaslang.collection
 javaslang.concurrent
 javaslang.control
