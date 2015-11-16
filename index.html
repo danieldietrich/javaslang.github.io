@@ -178,17 +178,17 @@
                     </ul>
                     <ul class="list-inline banner-social-buttons">
                         <li>
-                            <a href="#" onclick="openUrl('./javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openLink('./javadoc/${version}/index.html'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-code-o fa-fw"></i> Browse Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl('./javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openLink('./javadoc/${version}/javaslang-${version}-javadoc.zip'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-file-zip-o fa-fw"></i> Download Javadoc
                             </a>
                         </li>
                         <li>
-                            <a href="#" onclick="openUrl('https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
+                            <a href="#" onclick="openLink('https://github.com/javaslang/javaslang/tree/javaslang-${version}', 'https://github.com/javaslang/javaslang'); return false;" class="btn btn-default btn-lg">
                                 <i class="fa fa-github fa-fw"></i> Source Code
                             </a>
                         </li>
@@ -598,7 +598,7 @@ final CheckResult result = new Property("square(int) &gt;= 0")
         }
 
         // opens a url depending on snapshot or release version, substitutes '${version}' with given version
-        function openUrl(releaseUrl, snapshotUrl) {
+        function openLink(releaseUrl, snapshotUrl) {
             if (typeof snapshotUrl == 'undefined') {
                 snapshotUrl = releaseUrl
             }
@@ -606,13 +606,26 @@ final CheckResult result = new Property("square(int) &gt;= 0")
             var snapshot = currentSnapshot()
             var versionToken = (version == snapshot) ? "snapshot" : version
             var url = ((version == snapshot) ? snapshotUrl : releaseUrl).replace(/\$\{version\}/g, versionToken)
-            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+            openUrl(url)
         }
 
         // the javadoc of the current release is displayed
         function javadoc(location) {
             var url = "./javadoc/" + currentRelease() + "/" + location
-            $("<a>").attr("href", url).attr("target", "_blank")[0].click()
+            openUrl(url)
+        }
+
+        // opens an url in a new tab/window
+        function openUrl(url) {
+            var a = document.createElement("a")
+            a.target = "_blank"
+            a.href = url
+            if (!a.onclick) {
+                window.open(a.href, a.target || "_self")
+            } else {
+                a.click()
+            }
+            a.remove()
         }
 
         // set year
