@@ -235,7 +235,7 @@ final Tuple2&lt;String, Integer&gt; java8 = Tuple.of("Java", 8);
 
 // (Javaslang, 2)
 final Tuple2&lt;String, Integer&gt; guessWhat = java8.map(
-    (s, i) -&gt; Tuple.of(s + "slang", i / 4)
+    s -&gt; s + "slang", i -&gt; i / 4
 );
 
 // and yes, java8 is still (Java, 8)
