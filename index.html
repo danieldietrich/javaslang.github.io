@@ -259,7 +259,7 @@ final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);
 final Function1&lt;Object, Integer&gt; hash = Object::hashCode;
 
 // computes the hash once, then reads from cache
-final Function&lt;Object, Integer&gt; hashCache =
+final Function&lt;Object, Option&lt;Integer&gt;&gt; hashCache =
         Function1.lift(Object::hashCode).memoized();
 
 // ciao type erasure, hi Integer.class!
