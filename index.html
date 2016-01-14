@@ -260,7 +260,7 @@ final Function1&lt;Object, Integer&gt; hash = Object::hashCode;
 
 // computes the hash once, then reads from cache
 final Function&lt;Object, Integer&gt; hashCache =
-        Function1.lift(Object::hashCode).memoized();
+        Function1.of(Object::hashCode).memoized();
 
 // ciao type erasure, hi Integer.class!
 final Class&lt;?&gt; returnType = hash.getType().returnType();
