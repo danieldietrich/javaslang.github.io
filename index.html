@@ -54,7 +54,7 @@
 
     <!-- syntax highlighting with prismjs -->
     <link href="prismjs/prism.css" rel="stylesheet" data-noprefix="">
-    
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -69,7 +69,7 @@
 
     <!-- syntax highlighting with prismjs -->
     <script src="js/prefixfree.min.js"></script>
-    
+
     <!-- syntax highlighting with prismjs -->
     <script src="prismjs/prism.js"></script>
 
@@ -479,6 +479,42 @@ final CheckResult result = new Property("square(int) &gt;= 0")
                 <p>
                     Generators of complex data structures are composed of simple generators.
                 </p>
+            </div>
+            <div class="row">
+                <h2>Validation Control</h2>
+                <p>
+                    Validation is an applicative functor, and facilitates accumulating errors. When trying to compose Monads,
+                    the combination process will short circuit at the first encountered error. But 'Validation' will
+                    continue processing the combining functions, accumulating all errors. This is especially useful
+                    when doing validation of multiple fields, say a web form, and you want to know all errors encountered,
+                    instead of one at a time.
+                </p>
+                <h2 class="label">Create and Combination</h2>
+<pre><code class="language-java">
+// Example of a successful validation
+Validation&lt;String,String&gt; nameValidator = Validation.valid("John Doe");
+Validation&lt;String,Integer&gt; ageValidator = Validation.valid(30);
+Validation&lt;String,Option&lt;String&gt;&gt; addressValidator = Validation.valid(Option.some("123 Fake St."));
+
+// How to combine validations and apply a function to the results
+Validation&lt;List&lt;String&gt;,Person&gt; personValidator = Validation.combine(nameValidator,ageValidator,addressValidator)
+                                                            .ap(Person::new);
+//  OR  //
+Validation&lt;List&lt;String&gt;,Person&gt; personValidator = nameValidator.combine(ageValidator).combine(addressValidator)
+                                                               .ap(Person::new);
+// Retrieve result
+Person person = personValidator.get();
+
+// Example of an unsuccessful validation
+Validation&lt;String,String&gt; nameValidator = Validation.invalid("Name is too long.");
+Validation&lt;String,Integer&gt; ageValidator = Validation.valid(30);
+Validation&lt;String,Option&lt;String&gt;&gt; addressValidator = Validation.invalid("Zipcode is missing.");
+Validation&lt;List&lt;String&gt;,Person&gt; personValidator = Validation.combine(nameValidator,ageValidator,addressValidator)
+                                                            .ap(Person::new);
+// Retrieve errors
+List&lt;String&gt; errors = personValidator.error();
+// errors = List("Name is too long.", "Zipcode is missing.")
+</code></pre>
             </div>
             <div class="row">
                 <h2>To be continued...</h2>
