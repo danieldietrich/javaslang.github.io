@@ -54,7 +54,7 @@
 
     <!-- syntax highlighting with prismjs -->
     <link href="prismjs/prism.css" rel="stylesheet" data-noprefix="">
-    
+
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -69,7 +69,7 @@
 
     <!-- syntax highlighting with prismjs -->
     <script src="js/prefixfree.min.js"></script>
-    
+
     <!-- syntax highlighting with prismjs -->
     <script src="prismjs/prism.js"></script>
 
@@ -479,6 +479,73 @@ final CheckResult result = new Property("square(int) &gt;= 0")
                 <p>
                     Generators of complex data structures are composed of simple generators.
                 </p>
+            </div>
+            <div class="row">
+                <h2>Validation Control</h2>
+                <p>
+                    Validation is an applicative functor, and facilitates accumulating errors. When trying to compose Monads,
+                    the combination process will short circuit at the first encountered error. But 'Validation' will
+                    continue processing the combining functions, accumulating all errors. This is especially useful
+                    when doing validation of multiple fields, say a web form, and you want to know all errors encountered,
+                    instead of one at a time.
+                </p>
+                <p>
+                    <b>Example:</b> We get the fields 'name' and 'age' from a web form and want to create either a valid
+                    Person instance, or return the list of validation errors.
+                </p>
+                <h2 class="label">Validation Example</h2>
+<pre><code class="language-java">
+PersonValidator personValidator = new PersonValidator();
+
+// Valid(Person(John Doe, 30))
+Validation&lt;List&lt;String&gt;, Person&gt; result = personValidator.validatePerson("John Doe", 30);
+
+// Invalid(List(Name contains invalid characters: '!4?', Age must be greater than 0))
+Validation&lt;List&lt;String&gt;, Person&gt; result = personValidator.validatePerson("John? Doe!4", -1);
+</code></pre>
+                <h2 class="label">Person Validator Example</h2>
+<pre><code class="language-java">
+public class PersonValidator {
+
+    private final String validNameChars = "[a-zA-Z ]";
+    private final int minAge = 0;
+
+    public Validation&lt;List&lt;String&gt;, Person&gt; validatePerson(String name, int age) {
+        return Validation.combine(validateName(name), validateAge(age)).ap(Person::new);
+    }
+
+    private Validation&lt;String, String&gt; validateName(String name) {
+        return CharSeq.of(name).replaceAll(validNameChars, "").transform(seq ->
+            seq.isEmpty() ? Validation.valid(name)
+                          : Validation.invalid("Invalid name characters: '" + seq.distinct().sort() + "'"));
+    }
+
+    private Validation&lt;String, Integer&gt; validateAge(int age) {
+        return (age < minAge) ? Validation.invalid("Age must be greater than 0")
+                              : Validation.valid(age);
+    }
+
+}
+</code></pre>
+                <h2 class="label">Person Example</h2>
+<pre><code class="language-java">
+public class Person {
+
+    public final String name;
+    public final int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person(" + name + ", " + age + ")";
+    }
+
+}
+</code></pre>
             </div>
             <div class="row">
                 <h2>To be continued...</h2>
