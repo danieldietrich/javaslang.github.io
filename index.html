@@ -232,11 +232,12 @@ compile "com.javaslang:javaslang:snapshot"</code></pre>
                 </p>
 <pre><code class="language-java">
 // (Java, 8)
-final Tuple2&lt;String, Integer&gt; java8 = Tuple.of("Java", 8);
+Tuple2&lt;String, Integer&gt; java8 = Tuple.of("Java", 8);
 
 // (Javaslang, 2)
-final Tuple2&lt;String, Integer&gt; guessWhat = java8.map(
-    s -&gt; s + "slang", i -&gt; i / 4
+Tuple2&lt;String, Integer&gt; guessWhat = java8.map(
+    s -&gt; s + "slang",
+    i -&gt; i / 4
 );
 
 // and yes, java8 is still (Java, 8)
@@ -247,31 +248,31 @@ final Tuple2&lt;String, Integer&gt; guessWhat = java8.map(
                 </p>
 <pre><code class="language-java">
 // sum.apply(1, 3) = 4
-final Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
+Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
 
 // add2.apply(1) = 3
-final Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);
+Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);
 </code></pre>
                 <p>
                     In fact <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">&lambda;</a> is a functional interface on steroids times 10.
                 </p>
 <pre><code class="language-java">
 // computes the hash code of an object
-final Function1&lt;Object, Integer&gt; hash = Object::hashCode;
+Function1&lt;Object, Integer&gt; hash = Object::hashCode;
 
 // computes the hash once, then reads from cache
-final Function&lt;Object, Integer&gt; hashCache =
+Function&lt;Object, Integer&gt; hashCache =
         Function1.of(Object::hashCode).memoized();
 
 // ciao type erasure, hi Integer.class!
-final Class&lt;?&gt; returnType = hash.getType().returnType();
+Class&lt;?&gt; returnType = hash.getType().returnType();
 </code></pre>
                 <p>
                     Checked functions are indispensable when dealing with exceptions in a functional way.
                 </p>
 <pre><code class="language-java">
 // may throw when called
-final Try.CheckedRunnable performIO = () -&gt; { ... };
+Try.CheckedRunnable performIO = () -&gt; { ... };
 
 // handling failure in a functional way
 Try.run(performIO).onFailure(...);
@@ -285,25 +286,25 @@ Try.run(performIO).onFailure(...);
                 </p>
 <pre><code class="language-java">
 // future *value*, result of an async calculation
-final Future&lt;T&gt; future = Future.of(...);
+Future&lt;T&gt; future = Future.of(...);
 
 // lazy *value*, evaluated once
-final Lazy&lt;T&gt; lazy = Lazy.of(...);
+Lazy&lt;T&gt; lazy = Lazy.of(...);
 
 // optional *value*, no more nulls
-final Option&lt;T&gt; option = Option.of(...);
+Option&lt;T&gt; option = Option.of(...);
 
 // *value* of a possibly failing computation
-final Try&lt;T&gt; tryy = Try.of(...);
+Try&lt;T&gt; tryy = Try.of(...);
 
 // a list of *values*
-final List&lt;T&gt; list = List.of(...);
+List&lt;T&gt; list = List.of(...);
 
 // all of the above (here: value) obey:
-final String s = value.filter(...).ifDefined("yay", "noes");
+String s = value.map(Object::toString).getOrElse("nothing");
 </code></pre>
                 <p>
-                    In Javaslang, all is built upon these three basic building blocks, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">tuples</a>, <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">functions</a> and <a href="#" onclick="javadoc('javaslang/Value.html'); return false;">values</a>. The possibilities are (countably) infinite...
+                    In Javaslang, all is built upon these three basic building blocks, <a href="#" onclick="javadoc('javaslang/Tuple.html'); return false;">tuples</a>, <a href="#" onclick="javadoc('javaslang/λ.html'); return false;">functions</a> and <a href="#" onclick="javadoc('javaslang/Value.html'); return false;">values</a>. To accomplish seamless interoperability with Java, Value is Iterable and provides various conversion methods back and forth from Javaslang to Java.
                 </p>
                 <img class="img-responsive" src="img/doc-overview.png"/>
             </div>
@@ -358,7 +359,7 @@ List.of(1, 2, 3).sum();
                 </p>
 <pre><code class="language-java">
 // 2, 4, 6, ...
-Stream.gen(1).filter(i -> i % 2 == 0);
+Stream.from(1).filter(i -> i % 2 == 0);
 </code></pre>
             </div>
             <div class="row">
@@ -376,7 +377,7 @@ Stream.of(0, 1, 2, 3, 13, 14, null, -1)
                 .whenType(Double.class).then(d -> "Found a double: " + d)
                 .whenApplicable((Number num) -> "number: " + num).thenApply()
                 .otherwise(() -> "no match"))
-        .map(MatchingTest::toString)
+        .map(Object::toString)
         .forEach(out::println);
 out.flush(); // Avoid mixing sout and serr
 
@@ -392,33 +393,33 @@ for (String s : Match.of(0)
                     Javaslang allows to match more special objects by more general cases:
                 </p>
 <pre><code class="language-java">
-// Match as Monad
-Match.of(new Some&lt;&gt;(1))
+// Match as Value
+Match.of(Option.some(1))
      .whenApplicable((Option&lt;Integer&gt; i) -&gt; true).thenApply()
      .get(); // = true
 
-Match.of(new Some&lt;&gt;(1))
+Match.of(Option.some(1))
      .whenType(Option.class).then(true)
      .get(); // = true
 
 // Match as Function
 Match.whenApplicable((Option&lt;Integer&gt; i) -&gt; true).thenApply()
-     .apply(new Some&lt;&gt;(1)); // = true
+     .apply(Option.some(1)); // = true
 
 Match.whenType(Option.class).then(true)
-     .apply(new Some&lt;&gt;(1)); // = true
+     .apply(Option.some(1)); // = true
 </code></pre>
                 <p>
                     The opposite is also possible, to match more general objects by more special cases:
                 </p>
 <pre><code class="language-java">
-// Match as Monad
+// Match as Value
 Match.of(Option.of(1))
-     .whenIs(new Some&lt;&gt;(1)).then(true)
+     .whenIs(Option.some(1)).then(true)
      .get(); // = true
 
 // Match as Function
-Match.whenIs(new Some&lt;&gt;(1)).then(true)
+Match.whenIs(Option.some(1)).then(true)
      .apply(Option.of(1)); // = true
 </code></pre>
             </div>
@@ -446,16 +447,16 @@ try {
                     <h2 class="label">Javaslang</h2>
 <pre><code class="language-java">
 // no need to handle exceptions
-Try.of(() -> bunchOfWork()).orElse(other);
+Try.of(() -> bunchOfWork()).getOrElse(other);
 </code></pre>
 <pre><code class="language-java">
-final A result = Try.of(this::bunchOfWork)
+A result = Try.of(this::bunchOfWork)
     .recover(x -&gt; Match.of(x)
         .whenType(Exception_1.class).then(...)
         .whenType(Exception_2.class).then(...)
         .whenType(Exception_n.class).then(...)
         .get())
-    .orElse(other);
+    .getOrElse(other);
 </code></pre>
                 </div>
                 <p>
@@ -468,13 +469,13 @@ final A result = Try.of(this::bunchOfWork)
                     Property checking (also known as <a href="http://en.wikipedia.org/wiki/Property_testing" target="_blank">property testing</a>) is a truly powerful way to test properties of our code in a functional way. It is based on <em><a href="#" onclick="javadoc('javaslang/test/Arbitrary.html'); return false;">arbitrarily</a></em> generated random data, which is passed to a user defined check function.
                 </p>
 <pre><code class="language-java">
-final Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
+Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
 
 // square(int) &gt;= 0: OK, passed 1000 tests.
-final CheckResult result = new Property("square(int) &gt;= 0")
+Property.def("square(int) &gt;= 0")
         .forAll(ints)
         .suchThat(i -> (i * i) &gt;= 0)
-        .check();
+        .check()
         .assertIsSatisfied();
 </code></pre>
                 <p>
@@ -508,22 +509,23 @@ Validation&lt;List&lt;String&gt;, Person&gt; result = personValidator.validatePe
 <pre><code class="language-java">
 public class PersonValidator {
 
-    private final String validNameChars = "[a-zA-Z ]";
-    private final int minAge = 0;
+    private static final String VALID_NAME_CHARS = "[a-zA-Z ]";
+    private static final int MIN_AGE = 0;
 
     public Validation&lt;List&lt;String&gt;, Person&gt; validatePerson(String name, int age) {
         return Validation.combine(validateName(name), validateAge(age)).ap(Person::new);
     }
 
     private Validation&lt;String, String&gt; validateName(String name) {
-        return CharSeq.of(name).replaceAll(validNameChars, "").transform(seq ->
-            seq.isEmpty() ? Validation.valid(name)
-                          : Validation.invalid("Invalid name characters: '" + seq.distinct().sort() + "'"));
+        return CharSeq.of(name).replaceAll(VALID_NAME_CHARS, "").transform(seq -> seq.isEmpty()
+                ? Validation.valid(name)
+                : Validation.invalid("Name contains invalid characters: '" + seq.distinct().sort() + "'"));
     }
 
     private Validation&lt;String, Integer&gt; validateAge(int age) {
-        return (age < minAge) ? Validation.invalid("Age must be greater than 0")
-                              : Validation.valid(age);
+        return (age &lt; MIN_AGE)
+                ? Validation.invalid("Age must be greater than " + MIN_AGE)
+                : Validation.valid(age);
     }
 
 }
