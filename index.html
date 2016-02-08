@@ -9,15 +9,26 @@
          * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
          */
         var JAVASLANG_VERSIONS = {
-            "snapshot": "2.0.0-RC4-SNAPSHOT",
+            "snapshot": "2.0.0-RC5-SNAPSHOT",
             "releases": [
-                "2.0.0-RC3",
+                "2.0.0-RC4",
                 "1.2.2",
                 "1.2.1",
                 "1.2.0",
                 "1.1.0",
                 "1.0.0"
             ]
+        }
+
+        /*
+         * HERE GO THE JAVASLANG ARTIFACTS IN _ALPHABETICAL_ ORDER, FIRST IS 'javaslang'.
+         * The JS OBJECT MAPS artifact_name TO since version.
+         * THIS FIELD IS USED TO LINK THE RESOURCES ON THIS PAGE CORRECTLY.
+         */
+        var JAVASLANG_ARTIFACTS = {
+            "javaslang": "1.0.0",
+            "javaslang-pure": "2.0.0",
+            "javaslang-test": "2.0.0"
         }
     </script>
 
@@ -107,12 +118,11 @@
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden"><a href="#page-top"></a></li>
                     <li><a href="http://blog.javaslang.com" target="_blank"><strong>Blog</strong></a></li>
-                    <li><a class="page-scroll" href="#about">About</a></li>
                     <li><a class="page-scroll" href="#download">Download</a></li>
                     <li><a class="page-scroll" href="#examples">Examples</a></li>
-                    <li><a href="#" onclick="openUrl('http://javaslang.github.io/javaslang-docs/' + getVersion())">Documentation</a></li>
+                    <li><a href="#" onclick="openUrl('http://javaslang.github.io/javaslang-docs/' + currentRelease())">Documentation</a></li>
                     <li><a class="page-scroll" href="#contact">Contact</a></li>
-                    <li><a class="page-scroll" href="#sponsors">Supporters</a></li>
+                    <li><a class="page-scroll" href="#sponsors">Sponsors</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -141,32 +151,22 @@
         </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="content-section text-center">
-        <div class="about-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <p>
-                            Java 8 introduced <span class="lambda">&lambda;</span> which dramatically increases the expressiveness of our programs, but
-                            <em>&ldquo;Clearly, the JDK APIs won’t help you to write concise functional logic (...)&rdquo;</em> - <a href="http://blog.jooq.org/2015/04/02/how-to-use-java-8-streams-to-swiftly-replace-elements-in-a-list/" target="_blank">jOOQ&trade; blog</a>
-                        </p>
-                        <p>
-                            Javaslang&trade; is the missing part and the best solution to write comprehensive functional Java 8+ programs.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Download Section -->
     <section id="download" class="content-section text-center">
         <div class="download-section">
             <div class="container">
                 <div class="row">
                     <ul class="list-inline">
-                        <li><p>Get Javaslang&trade;</p></li>
+                        <li><p>Get </p></li>
+                        <li>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span id="artifactSelection">javaslang</span> <span class="caret"></span>
+                                </button>
+                                <ul id="artifactList" class="dropdown-menu" role="menu">
+                                </ul>
+                            </div>
+                        </li>
                         <li>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -475,7 +475,7 @@ Arbitrary&lt;Integer&gt; ints = Arbitrary.integer();
 // square(int) &gt;= 0: OK, passed 1000 tests.
 Property.def("square(int) &gt;= 0")
         .forAll(ints)
-        .suchThat(i -> (i * i) &gt;= 0)
+        .suchThat(i -> i * i &gt;= 0)
         .check()
         .assertIsSatisfied();
 </code></pre>
@@ -603,11 +603,11 @@ public class Person {
     </section>
 
     <!-- Sponsors Section -->
-    <section id="sponsors" class="content-section text-center" style="background-color: #778899">
-        <div class="container">
-            <div class="row">
+    <section id="sponsors" class="content-section text-center" style="background: rgba(119,136,153,0.9); /*background-color: 778899;*/">
+        <div class="sponsors-section">
+            <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2 style="color: #cde">Supporters</h2>
+                    <h2 style="color: #cde">Sponsors</h2>
                     <p style="font-family: Arial; font-size: 1.3em; line-height: 1.2em; text-align: left; text-color: #def">
                         <img src="img/yklogo.png">
                     </p>
@@ -639,19 +639,36 @@ public class Person {
 
         // Init Javaslang release and snapshot versions.
         $(document).ready(function(){
-            initVersions()
+            initArtifacts()
         });
 
-        function initVersions() {
+        function initArtifacts() {
+            var list = $("#artifactList")
+            for (var artifact in JAVASLANG_ARTIFACTS) {
+                var since = JAVASLANG_ARTIFACTS[artifact]
+                list.append('<li><a href="#" onclick="setArtifact(\'' + artifact + '\', \'' + since + '\'); return false;">' + artifact + '</a></li>')
+            }
+            // set artifact, this will trigger initVersions()
+            var first = Object.keys(JAVASLANG_ARTIFACTS)[0]
+            var since = JAVASLANG_ARTIFACTS[first]
+            setArtifact(first, since)
+        }
+
+        // @param since The version since an artifact is supported
+        function initVersions(since) {
             var snapshot = JAVASLANG_VERSIONS.snapshot
             var list = $("#versionList")
+            list.empty() //remove child elements
             list.append('<li><a href="#" onclick="setVersion(\'' + snapshot + '\'); return false;">' + snapshot + '</a></li>')
             list.append('<li class="divider"></li>')
             var releases = JAVASLANG_VERSIONS.releases
-            var length = releases.length
-            for (var i = 0; i < length; i++) {
+            for (var i = 0; i < releases.length; i++) {
                 var version = releases[i]
                 list.append('<li><a href="#" onclick="setVersion(\'' + version + '\'); return false;">' + version + '</a></li>')
+                // loop until version _since_ it is supported
+                if (version.slice(0, since.length) == since) {
+                    break;
+                }
             }
             setVersion(currentRelease())
         }
@@ -663,6 +680,21 @@ public class Person {
         function currentSnapshot() {
             return JAVASLANG_VERSIONS.snapshot
         }
+
+        // returns the selected Javaslang artifact (see download section)
+        function getArtifact() {
+            return $("#artifactSelection").text()
+        }
+
+        // sets the selected Javaslang artifact (see download section)
+        function setArtifact(artifact, since) {
+            var previousArtifact = getArtifact()
+            updateDependencies(':' + previousArtifact, ':' + artifact)
+            updateDependencies('>' + previousArtifact, '>' + artifact)
+            $("#artifactSelection").text(artifact)
+            initVersions(since)
+        }
+
 
         // returns the selected Javaslang version (see download section)
         function getVersion() {

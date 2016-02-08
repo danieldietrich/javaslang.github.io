@@ -280,8 +280,11 @@ img.brand-heading {
 }
 
 .about-section {
-    color: #fff;
     width: 100%;
+    height: auto;
+    margin: 0 auto; 
+    padding: 50px 0;
+    color: #fff;
 }
 
 #download {
@@ -289,9 +292,11 @@ img.brand-heading {
 }
 
 .download-section {
-    color: #fff;
-    padding: 50px 0;
     width: 100%;
+    height: auto;
+    margin: 0 auto; 
+    padding: 50px 0;
+    color: #fff;
 }
 
 #downloadVersion {
@@ -306,17 +311,28 @@ img.brand-heading {
     width: 100%;
     height: auto;
     margin: 0 auto; 
-    padding: 50px 0;
+    padding: 100px 0;
+    color: #fff;
+    background-color: transparent;
+}
+
+.sponsors-section {
+    width: 100%;
+    height: auto;
+    margin: 0 auto; 
+    padding: 100px 0;
     color: #fff;
     background-color: transparent;
 }
 
 #links {
     width: 100%;
-    background-color: transparent;
+    height: auto;
+    margin: 0 auto; 
     padding: 100px 0;
-    text-align: center;
     color: #777;
+    background-color: transparent;
+    text-align: center;
 }
 
 #links p {
