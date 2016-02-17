@@ -715,9 +715,18 @@ public class Person {
             function setDependency(cssSelector) {
                 var element = $(cssSelector)
                 var content = element.html().replace(previousVersion, version)
+
+                // TEMPORARY UNTIL RC5 -->
+                var isSnapshot = JAVASLANG_VERSIONS.snapshot == version
+                if (isSnapshot) {
+                    content = content.replace("com\.javaslang", "io.javaslang")
+                } else {
+                    content = content.replace("io\.javaslang", "com.javaslang")
+                }
+                // <-- TEMPORARY UNTIL RC5
+
                 element.html(content)
             }
-
             setDependency("#gradleDependency")
             setDependency("#mavenDependency")
         }
